@@ -1,1 +1,20 @@
-V1.2: las imágenes usan sus nombres exactos en la raíz del repositorio. No mover las imágenes. Reemplazar index.html, style.css y script.js.
+# MAJESTYCH COUTURE — V1.1
+
+## Esta versión corrige
+- Nombre escrito exactamente: MAJESTYCH COUTURE.
+- Logo y fotos dentro de `assets/`.
+- Rutas relativas compatibles con GitHub Pages.
+- Catálogo responsive.
+- WhatsApp configurado para 3244031690.
+- Pantalla de entrada.
+- Instagram y Facebook.
+
+## Archivos
+- index.html
+- style.css
+- script.js
+- assets/
+
+## GitHub Pages
+Sube el contenido de este proyecto a la raíz del repositorio, de modo que `index.html` quede directamente en la raíz.
+Pages: Deploy from a branch → `main` → `/ (root)`.
