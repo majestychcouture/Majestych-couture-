@@ -415,7 +415,3 @@ body.modal-open{overflow:hidden}
   .cart-items{padding:10px 17px}
   .cart-footer{padding:18px}
 }
-
-/* V7 FIX · producto seleccionable */
-.product, .product-card, .card { cursor:pointer; }
-.product img, .product-card img, .card img { cursor:pointer; }
