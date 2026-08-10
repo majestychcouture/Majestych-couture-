@@ -45,7 +45,7 @@ footer{padding:28px 7vw;border-top:1px solid rgba(212,174,91,.18);color:#6e6b64;
 
 .whatsapp-float{position:fixed;right:22px;bottom:22px;width:62px;height:62px;border-radius:50%;background:#25D366;display:flex;align-items:center;justify-content:center;z-index:50;box-shadow:0 8px 28px rgba(0,0,0,.5);transition:.2s}
 .whatsapp-float:hover{transform:scale(1.07)}
-.whatsapp-float svg{width:34px;height:34px;fill:white}
+.whatsapp-float svg{width:36px;height:36px;display:block}
 
 @media(max-width:900px){
   .hero{grid-template-columns:1fr 330px;gap:35px;padding:70px 6vw}

@@ -1,4 +1,4 @@
-const WHATSAPP = "573022974305";
+const WHATSAPP = "573244031690";
 
 const products = [
 {name:"Conjunto NBA #1", image:"00f64e7e7bddb7e089292d505ea36360.jpeg", price:74999},
