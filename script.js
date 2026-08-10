@@ -42,3 +42,45 @@ products.forEach((product,index) => {
 
 document.getElementById("mainWhatsapp").href = whatsappLink(products[0]);
 document.getElementById("floatWhatsapp").href = `https://wa.me/${WHATSAPP}?text=${encodeURIComponent("Hola, Majestych Couture. Quiero información sobre la colección NBA.")}`;
+
+
+/* ===== V6 · MODAL DE PRODUCTO ===== */
+const productModal = document.getElementById("productModal");
+const modalImage = document.getElementById("modalImage");
+const modalName = document.getElementById("modalName");
+const modalPrice = document.getElementById("modalPrice");
+const modalWhatsapp = document.getElementById("modalWhatsapp");
+const modalClose = document.getElementById("modalClose");
+const modalBack = document.getElementById("modalBack");
+const modalBackdrop = document.getElementById("modalBackdrop");
+
+function openProduct(product){
+  modalImage.src = product.image;
+  modalImage.alt = product.name;
+  modalName.textContent = product.name;
+  modalPrice.textContent = "$" + money.format(product.price) + " COP";
+  modalWhatsapp.href = whatsappLink(product);
+  productModal.classList.add("open");
+  productModal.setAttribute("aria-hidden","false");
+  document.body.classList.add("modal-open");
+}
+
+function closeProduct(){
+  productModal.classList.remove("open");
+  productModal.setAttribute("aria-hidden","true");
+  document.body.classList.remove("modal-open");
+}
+
+document.querySelectorAll(".product").forEach((card,index)=>{
+  card.addEventListener("click",(event)=>{
+    if(event.target.closest("a")) return;
+    openProduct(products[index]);
+  });
+});
+
+modalClose.addEventListener("click",closeProduct);
+modalBack.addEventListener("click",closeProduct);
+modalBackdrop.addEventListener("click",closeProduct);
+document.addEventListener("keydown",(event)=>{
+  if(event.key === "Escape") closeProduct();
+});

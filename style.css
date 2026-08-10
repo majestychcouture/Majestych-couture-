@@ -146,3 +146,135 @@ footer{padding:28px 7vw;border-top:1px solid rgba(212,174,91,.18);color:#6e6b64;
   .hero-copy{font-size:13px;margin-top:20px}
   .hero-cta{padding:15px 20px}
 }
+
+
+/* ===== V6 · VISTA INDIVIDUAL DEL PRODUCTO ===== */
+.product{cursor:pointer}
+.product-info .product-button{cursor:pointer}
+.product-modal{
+  position:fixed;
+  inset:0;
+  z-index:100;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  padding:18px;
+}
+.product-modal.open{display:flex}
+.modal-backdrop{
+  position:absolute;
+  inset:0;
+  background:rgba(0,0,0,.82);
+  backdrop-filter:blur(8px);
+}
+.modal-panel{
+  position:relative;
+  z-index:2;
+  width:min(1050px,96vw);
+  max-height:92vh;
+  overflow:auto;
+  display:grid;
+  grid-template-columns:1.05fr .95fr;
+  background:#0d0d0b;
+  border:1px solid rgba(198,169,103,.35);
+  box-shadow:0 30px 100px rgba(0,0,0,.7);
+}
+.modal-photo{
+  min-height:600px;
+  background:#090909;
+}
+.modal-photo img{
+  width:100%;
+  height:100%;
+  min-height:600px;
+  object-fit:cover;
+  display:block;
+}
+.modal-details{
+  padding:70px 55px;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+}
+.modal-details h2{
+  font-family:Georgia,"Times New Roman",serif;
+  font-size:clamp(48px,5vw,70px);
+  line-height:.92;
+  font-weight:400;
+  margin:0 0 18px;
+}
+.modal-price{
+  color:#c6a967;
+  font-size:15px;
+  letter-spacing:1.5px;
+  margin:0 0 25px;
+}
+.modal-note{
+  color:#aaa49a;
+  font-size:12px;
+  line-height:1.8;
+  margin:0 0 35px;
+}
+.modal-note strong{color:#f0eadf;font-weight:500}
+.modal-whatsapp{
+  width:100%;
+  min-height:52px;
+}
+.back-button{
+  margin-top:18px;
+  border:0;
+  background:none;
+  color:#89847b;
+  font:500 9px Montserrat,Arial,sans-serif;
+  letter-spacing:2px;
+  cursor:pointer;
+  padding:12px 0;
+}
+.back-button:hover{color:#c6a967}
+.modal-close{
+  position:absolute;
+  top:12px;
+  right:14px;
+  z-index:4;
+  width:42px;
+  height:42px;
+  border:1px solid rgba(198,169,103,.4);
+  border-radius:50%;
+  background:rgba(8,8,8,.8);
+  color:#eee;
+  font-size:28px;
+  line-height:1;
+  cursor:pointer;
+}
+.modal-close:hover{background:#c6a967;color:#080808}
+body.modal-open{overflow:hidden}
+
+@media(max-width:700px){
+  .product{cursor:pointer}
+  .modal-panel{
+    width:100%;
+    max-height:94vh;
+    grid-template-columns:1fr;
+    overflow-y:auto;
+  }
+  .modal-photo{
+    min-height:0;
+    height:56vh;
+    max-height:570px;
+  }
+  .modal-photo img{
+    min-height:0;
+    height:100%;
+  }
+  .modal-details{
+    padding:30px 22px 35px;
+  }
+  .modal-details h2{
+    font-size:48px;
+  }
+  .modal-close{
+    top:10px;
+    right:10px;
+    background:rgba(8,8,8,.9);
+  }
+}
