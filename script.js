@@ -71,12 +71,7 @@ function closeProduct(){
   document.body.classList.remove("modal-open");
 }
 
-document.querySelectorAll(".product").forEach((card,index)=>{
-  card.addEventListener("click",(event)=>{
-    if(event.target.closest("a")) return;
-    openProduct(products[index]);
-  });
-});
+
 
 modalClose.addEventListener("click",closeProduct);
 modalBack.addEventListener("click",closeProduct);
@@ -240,3 +235,22 @@ openProduct = function(product){
 
 updateCartCount();
 renderCart();
+
+/* ===== V7 FIX · PRODUCT MODAL CLICK ===== */
+document.addEventListener("click", (event) => {
+  const card = event.target.closest(".product, .product-card, .card");
+  if (!card || !productModal) return;
+  if (event.target.closest("a, button, input, select")) return;
+
+  const cards = Array.from(document.querySelectorAll(".product, .product-card, .card"));
+  const index = cards.indexOf(card);
+  if (index < 0 || !products[index]) return;
+
+  selectedProduct = products[index];
+  selectedSize = null;
+  if (typeof sizeButtons !== "undefined") {
+    sizeButtons.forEach(b => b.classList.remove("selected"));
+  }
+  if (typeof sizeError !== "undefined") sizeError.classList.remove("show");
+  originalOpenProduct(products[index]);
+});
