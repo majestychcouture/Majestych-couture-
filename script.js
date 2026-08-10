@@ -84,3 +84,159 @@ modalBackdrop.addEventListener("click",closeProduct);
 document.addEventListener("keydown",(event)=>{
   if(event.key === "Escape") closeProduct();
 });
+
+
+/* ===== V7 · TALLA + CARRITO ===== */
+let cart = JSON.parse(localStorage.getItem("majestych_cart") || "[]");
+let selectedProduct = null;
+let selectedSize = null;
+
+const cartButton = document.getElementById("cartButton");
+const cartCount = document.getElementById("cartCount");
+const cartDrawer = document.getElementById("cartDrawer");
+const cartOverlay = document.getElementById("cartOverlay");
+const cartClose = document.getElementById("cartClose");
+const cartItems = document.getElementById("cartItems");
+const cartTotal = document.getElementById("cartTotal");
+const cartWhatsapp = document.getElementById("cartWhatsapp");
+const addCartButton = document.getElementById("addCartButton");
+const sizeError = document.getElementById("sizeError");
+const sizeButtons = document.querySelectorAll(".size-option");
+
+function saveCart(){
+  localStorage.setItem("majestych_cart", JSON.stringify(cart));
+}
+
+function cartQuantity(){
+  return cart.reduce((sum,item)=>sum + item.quantity,0);
+}
+
+function openCart(){
+  cartDrawer.classList.add("open");
+  cartOverlay.classList.add("open");
+  cartDrawer.setAttribute("aria-hidden","false");
+  document.body.classList.add("modal-open");
+  renderCart();
+}
+
+function closeCart(){
+  cartDrawer.classList.remove("open");
+  cartOverlay.classList.remove("open");
+  cartDrawer.setAttribute("aria-hidden","true");
+  document.body.classList.remove("modal-open");
+}
+
+function addToCart(){
+  if(!selectedProduct) return;
+  if(!selectedSize){
+    sizeError.classList.add("show");
+    return;
+  }
+  sizeError.classList.remove("show");
+
+  const existing = cart.find(item => item.productId === selectedProduct.id && item.size === selectedSize);
+  if(existing){
+    existing.quantity += 1;
+  }else{
+    cart.push({
+      productId:selectedProduct.id,
+      name:selectedProduct.name,
+      image:selectedProduct.image,
+      price:selectedProduct.price,
+      size:selectedSize,
+      quantity:1
+    });
+  }
+  saveCart();
+  updateCartCount();
+  closeProduct();
+  openCart();
+}
+
+function changeQty(index, delta){
+  cart[index].quantity += delta;
+  if(cart[index].quantity <= 0) cart.splice(index,1);
+  saveCart();
+  renderCart();
+  updateCartCount();
+}
+
+function removeCartItem(index){
+  cart.splice(index,1);
+  saveCart();
+  renderCart();
+  updateCartCount();
+}
+
+function cartMessage(){
+  if(!cart.length) return "Hola, Majestych Couture. Quiero información sobre la colección NBA.";
+  let lines = cart.map(item =>
+    `${item.name} — Talla ${item.size} — x${item.quantity} — $${money.format(item.price * item.quantity)} COP`
+  );
+  const total = cart.reduce((sum,item)=>sum + item.price * item.quantity,0);
+  return `Hola, Majestych Couture. Quiero realizar este pedido:\n\n${lines.join("\n")}\n\nTotal: $${money.format(total)} COP`;
+}
+
+function renderCart(){
+  cartItems.innerHTML = "";
+  if(!cart.length){
+    cartItems.innerHTML = '<div class="cart-empty">Tu carrito está vacío.<br>Elige un conjunto y agrega tu talla.</div>';
+  }else{
+    cart.forEach((item,index)=>{
+      const row = document.createElement("div");
+      row.className = "cart-item";
+      row.innerHTML = `
+        <img src="${item.image}" alt="${item.name}">
+        <div>
+          <h3 class="cart-item-name">${item.name}</h3>
+          <p class="cart-item-meta">Talla: <strong>${item.size}</strong></p>
+          <p class="cart-item-price">$${money.format(item.price)} COP</p>
+          <div class="qty">
+            <button type="button" data-action="minus">−</button>
+            <span>${item.quantity}</span>
+            <button type="button" data-action="plus">+</button>
+          </div>
+        </div>
+        <button class="remove-item" type="button" aria-label="Eliminar">×</button>
+      `;
+      row.querySelector('[data-action="minus"]').onclick = () => changeQty(index,-1);
+      row.querySelector('[data-action="plus"]').onclick = () => changeQty(index,1);
+      row.querySelector(".remove-item").onclick = () => removeCartItem(index);
+      cartItems.appendChild(row);
+    });
+  }
+
+  const total = cart.reduce((sum,item)=>sum + item.price * item.quantity,0);
+  cartTotal.textContent = "$" + money.format(total) + " COP";
+  cartWhatsapp.href = "https://wa.me/" + WHATSAPP + "?text=" + encodeURIComponent(cartMessage());
+}
+
+function updateCartCount(){
+  cartCount.textContent = cartQuantity();
+}
+
+sizeButtons.forEach(button=>{
+  button.addEventListener("click",()=>{
+    selectedSize = button.dataset.size;
+    sizeButtons.forEach(b=>b.classList.remove("selected"));
+    button.classList.add("selected");
+    sizeError.classList.remove("show");
+  });
+});
+
+addCartButton.addEventListener("click",addToCart);
+cartButton.addEventListener("click",openCart);
+cartClose.addEventListener("click",closeCart);
+cartOverlay.addEventListener("click",closeCart);
+
+const originalOpenProduct = openProduct;
+openProduct = function(product){
+  selectedProduct = product;
+  selectedSize = null;
+  sizeButtons.forEach(b=>b.classList.remove("selected"));
+  sizeError.classList.remove("show");
+  originalOpenProduct(product);
+};
+
+updateCartCount();
+renderCart();

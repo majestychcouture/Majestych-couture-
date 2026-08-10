@@ -278,3 +278,140 @@ body.modal-open{overflow:hidden}
     background:rgba(8,8,8,.9);
   }
 }
+
+
+/* ===== V7 · CARRITO ===== */
+.cart-button{
+  order:2;
+  margin-left:auto;
+  margin-right:22px;
+  border:1px solid rgba(198,169,103,.45);
+  background:rgba(198,169,103,.05);
+  color:#e7d5a8;
+  min-width:58px;
+  height:38px;
+  padding:0 11px;
+  font:600 12px Montserrat,Arial,sans-serif;
+  cursor:pointer;
+  letter-spacing:1px;
+}
+.cart-button:hover{background:#c6a967;color:#080807}
+#cartCount{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-width:18px;
+  height:18px;
+  padding:0 5px;
+  margin-left:3px;
+  border-radius:20px;
+  background:#c6a967;
+  color:#080807;
+  font-size:9px;
+  vertical-align:middle;
+}
+.cart-overlay{
+  position:fixed;
+  inset:0;
+  z-index:80;
+  background:rgba(0,0,0,.65);
+  backdrop-filter:blur(3px);
+  display:none;
+}
+.cart-overlay.open{display:block}
+.cart-drawer{
+  position:fixed;
+  top:0;
+  right:0;
+  bottom:0;
+  width:min(440px,94vw);
+  z-index:90;
+  background:#0c0c0a;
+  border-left:1px solid rgba(198,169,103,.28);
+  transform:translateX(105%);
+  transition:transform .32s ease;
+  display:flex;
+  flex-direction:column;
+  box-shadow:-25px 0 80px rgba(0,0,0,.55);
+}
+.cart-drawer.open{transform:translateX(0)}
+.cart-header{
+  padding:25px 25px 20px;
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-start;
+  border-bottom:1px solid rgba(198,169,103,.16);
+}
+.cart-header .eyebrow{margin-bottom:6px;font-size:8px}
+.cart-header h2{font-size:43px}
+.cart-close{
+  width:40px;height:40px;border-radius:50%;
+  border:1px solid rgba(198,169,103,.35);
+  background:#111;color:#eee;font-size:26px;cursor:pointer;
+}
+.cart-items{flex:1;overflow:auto;padding:12px 20px}
+.cart-empty{text-align:center;padding:75px 20px;color:#8f8a81;font-size:12px;line-height:1.8}
+.cart-item{
+  display:grid;
+  grid-template-columns:78px 1fr auto;
+  gap:13px;
+  padding:15px 0;
+  border-bottom:1px solid rgba(198,169,103,.13);
+}
+.cart-item img{
+  width:78px;height:92px;object-fit:cover;background:#111;display:block;
+}
+.cart-item-name{font-family:Georgia,"Times New Roman",serif;font-size:20px;margin:0 0 5px}
+.cart-item-meta{color:#99938a;font-size:9px;line-height:1.7;margin:0}
+.cart-item-price{color:#c6a967;font-size:10px;margin-top:6px}
+.qty{
+  display:flex;align-items:center;gap:8px;margin-top:9px;
+}
+.qty button{
+  width:25px;height:25px;border:1px solid rgba(198,169,103,.35);
+  background:#111;color:#e8dfd0;cursor:pointer;
+}
+.qty span{font-size:10px;min-width:12px;text-align:center}
+.remove-item{
+  border:0;background:none;color:#777;font-size:16px;cursor:pointer;
+  align-self:start;padding:2px;
+}
+.remove-item:hover{color:#c6a967}
+.cart-footer{
+  padding:20px 22px 24px;
+  border-top:1px solid rgba(198,169,103,.2);
+  background:#0a0a08;
+}
+.cart-total{display:flex;justify-content:space-between;align-items:center;margin-bottom:15px}
+.cart-total span{font-size:9px;letter-spacing:2px;color:#8e887f}
+.cart-total strong{font-size:18px;color:#e7d5a8}
+.cart-whatsapp{width:100%;min-height:50px}
+.add-cart-button{
+  width:100%;
+  margin-top:11px;
+  min-height:50px;
+  border:1px solid #c6a967;
+  background:#c6a967;
+  color:#080807;
+  font:600 9px Montserrat,Arial,sans-serif;
+  letter-spacing:2px;
+  cursor:pointer;
+}
+.add-cart-button:hover{background:#e0c787}
+.size-picker{margin:0 0 22px}
+.size-picker-label{font-size:9px;letter-spacing:2px;color:#8e887f;margin-bottom:10px;display:block}
+.size-options{display:flex;gap:8px}
+.size-option{
+  min-width:52px;height:42px;border:1px solid rgba(198,169,103,.35);
+  background:#111;color:#ddd;cursor:pointer;font:500 10px Montserrat,Arial,sans-serif;
+}
+.size-option.selected{background:#c6a967;color:#080807;border-color:#c6a967}
+.size-error{color:#c6a967;font-size:9px;margin:9px 0 0;display:none}
+.size-error.show{display:block}
+@media(max-width:700px){
+  .cart-button{margin-right:10px;min-width:52px}
+  .cart-drawer{width:100%;border-left:0}
+  .cart-header{padding:20px}
+  .cart-items{padding:10px 17px}
+  .cart-footer{padding:18px}
+}
