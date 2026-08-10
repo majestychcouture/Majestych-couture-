@@ -1,17 +1,17 @@
 const WHATSAPP="573244031690";
 const products=[
-{id:1,name:"Conjunto NBA #1",price:74999,image:"00f64e7e7bddb7e089292d505ea36360.jpeg"},
-{id:2,name:"Conjunto NBA #2",price:74999,image:"0202a8a8c31727f8827e15d0c7bd9828.jpeg"},
-{id:3,name:"Conjunto NBA #3",price:74999,image:"073f311d29a0006e18a7eb0ea2517d1a.jpeg"},
-{id:4,name:"Conjunto NBA #4",price:74999,image:"437698d6dc23929c30b24b9927afdba2.jpeg"},
-{id:5,name:"Conjunto NBA #5",price:74999,image:"631d2a1c8731e8f9c5562db96131e931.jpeg"},
-{id:6,name:"Conjunto NBA #6",price:74999,image:"68f1b3fa169687ad3c5a8d54312b9c8a.jpeg"},
-{id:7,name:"Conjunto NBA #7",price:74999,image:"844d43f2-ad15-4136-af0e-71177fb7b9ce.jpeg"},
-{id:8,name:"Conjunto NBA #8",price:74999,image:"8ebd8237fc805674d9975e8ab8830603.jpeg"},
-{id:9,name:"Conjunto NBA #9",price:74999,image:"a9598c06bee895805e527fbdf6f42d22.jpeg"},
-{id:10,name:"Conjunto NBA #10",price:74999,image:"b5d4e421f6946d69a8895df61d3621a0.jpeg"},
-{id:11,name:"Conjunto NBA #11",price:74999,image:"bc5221980047b5992b13f6f51655ac89.jpeg"},
-{id:12,name:"Conjunto NBA #12",price:74999,image:"d519ba7729b89030aab8fa387ff93357.jpeg"}];
+{id:1,name:"Conjunto NBA #1",price:74999,image:"https://raw.githubusercontent.com/majestychcouture/Majestych-couture-/main/00f64e7e7bddb7e089292d505ea36360.jpeg"},
+{id:2,name:"Conjunto NBA #2",price:74999,image:"https://raw.githubusercontent.com/majestychcouture/Majestych-couture-/main/0202a8a8c31727f8827e15d0c7bd9828.jpeg"},
+{id:3,name:"Conjunto NBA #3",price:74999,image:"https://raw.githubusercontent.com/majestychcouture/Majestych-couture-/main/073f311d29a0006e18a7eb0ea2517d1a.jpeg"},
+{id:4,name:"Conjunto NBA #4",price:74999,image:"https://raw.githubusercontent.com/majestychcouture/Majestych-couture-/main/437698d6dc23929c30b24b9927afdba2.jpeg"},
+{id:5,name:"Conjunto NBA #5",price:74999,image:"https://raw.githubusercontent.com/majestychcouture/Majestych-couture-/main/631d2a1c8731e8f9c5562db96131e931.jpeg"},
+{id:6,name:"Conjunto NBA #6",price:74999,image:"https://raw.githubusercontent.com/majestychcouture/Majestych-couture-/main/68f1b3fa169687ad3c5a8d54312b9c8a.jpeg"},
+{id:7,name:"Conjunto NBA #7",price:74999,image:"https://raw.githubusercontent.com/majestychcouture/Majestych-couture-/main/844d43f2-ad15-4136-af0e-71177fb7b9ce.jpeg"},
+{id:8,name:"Conjunto NBA #8",price:74999,image:"https://raw.githubusercontent.com/majestychcouture/Majestych-couture-/main/8ebd8237fc805674d9975e8ab8830603.jpeg"},
+{id:9,name:"Conjunto NBA #9",price:74999,image:"https://raw.githubusercontent.com/majestychcouture/Majestych-couture-/main/a9598c06bee895805e527fbdf6f42d22.jpeg"},
+{id:10,name:"Conjunto NBA #10",price:74999,image:"https://raw.githubusercontent.com/majestychcouture/Majestych-couture-/main/b5d4e421f6946d69a8895df61d3621a0.jpeg"},
+{id:11,name:"Conjunto NBA #11",price:74999,image:"https://raw.githubusercontent.com/majestychcouture/Majestych-couture-/main/bc5221980047b5992b13f6f51655ac89.jpeg"},
+{id:12,name:"Conjunto NBA #12",price:74999,image:"https://raw.githubusercontent.com/majestychcouture/Majestych-couture-/main/d519ba7729b89030aab8fa387ff93357.jpeg"}];
 
 const money=n=>new Intl.NumberFormat("es-CO").format(n);
 const modal=document.getElementById("productModal");
@@ -91,4 +91,20 @@ document.getElementById("cartOverlay").onclick=()=>{document.getElementById("car
 document.getElementById("mainWhatsapp").href=wa({name:"la colección",price:0});
 document.getElementById("floatWhatsapp").href=wa({name:"la colección",price:0});
 renderProducts();renderCart();
-\n\n/* V9 — datos de envío y pedido completo por WhatsApp */\n(function(){\n  const form=document.getElementById("checkoutForm");\n  if(!form) return;\n  form.addEventListener("submit",function(e){\n    e.preventDefault();\n    if(!cart.length){ alert("Tu carrito está vacío. Agrega al menos un producto."); return; }\n    const val=id=>document.getElementById(id).value.trim();\n    const name=val("customerName"), cedula=val("customerId"), phone=val("customerPhone"), city=val("customerCity"), address=val("customerAddress");\n    if(!name||!cedula||!phone||!city||!address){ alert("Completa todos los datos de envío antes de continuar."); return; }\n    const total=cart.reduce((a,x)=>a+x.price*x.qty,0);\n    const lines=cart.map(x=>`• ${x.name} — Talla ${x.size} — x${x.qty} — $${money(x.price*x.qty)} COP`);\n    const msg="Hola, Majestych Couture. Quiero realizar este pedido:\\n\\n"+lines.join("\\n")+"\\n\\nTOTAL: $"+money(total)+" COP\\n\\nDATOS DE ENVÍO\\nNombre: "+name+"\\nCédula: "+cedula+"\\nCelular: "+phone+"\\nCiudad / municipio: "+city+"\\nDirección: "+address+"\\n\\nEnvío a todo el país — Pago contra entrega.";\n    window.open("https://wa.me/"+WHATSAPP+"?text="+encodeURIComponent(msg),"_blank");\n  });\n})();\n
+
+/* V9 CHECKOUT */
+(function(){
+const f=document.getElementById("checkoutForm"); if(!f)return;
+f.addEventListener("submit",function(e){
+e.preventDefault();
+if(!cart.length){alert("Tu carrito está vacío. Agrega un producto.");return;}
+const g=id=>document.getElementById(id).value.trim();
+const name=g("customerName"), ced=g("customerId"), phone=g("customerPhone"), city=g("customerCity"), addr=g("customerAddress");
+if(!name||!ced||!phone||!city||!addr){alert("Completa todos los datos de envío.");return;}
+const total=cart.reduce((s,x)=>s+x.price*x.qty,0);
+const money2=n=>Number(n).toLocaleString("es-CO");
+const items=cart.map(x=>"• "+x.name+" — Talla "+(x.size||"—")+" — Cantidad: "+x.qty+" — $"+money2(x.price*x.qty)+" COP").join("\n");
+const msg="Hola, Majestych Couture. Quiero realizar este pedido:\n\n"+items+"\n\nTOTAL: $"+money2(total)+" COP\n\nDATOS DE ENVÍO\nNombre: "+name+"\nCédula: "+ced+"\nCelular: "+phone+"\nCiudad / municipio: "+city+"\nDirección: "+addr+"\n\nEnvío a todo el país — Pago contra entrega.";
+window.open("https://wa.me/"+WHATSAPP+"?text="+encodeURIComponent(msg),"_blank");
+});
+})();
