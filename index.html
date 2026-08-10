@@ -61,6 +61,19 @@
 <aside class="cart-drawer" id="cartDrawer">
   <div class="cart-header"><div><p class="eyebrow">MAJESTYCH COUTURE</p><h2>Tu carrito</h2></div><button type="button" id="cartClose">×</button></div>
   <div id="cartItems" class="cart-items"></div>
+  <div class="checkout-box">
+    <div class="checkout-title">DATOS DE ENVÍO</div>
+    <p class="checkout-note">🚚 Envíos a todo el país · Pago contra entrega</p>
+    <form id="checkoutForm" autocomplete="on">
+      <input id="customerName" type="text" placeholder="Nombre completo" required>
+      <input id="customerId" type="text" placeholder="Cédula" inputmode="numeric" required>
+      <input id="customerPhone" type="tel" placeholder="Celular" inputmode="tel" required>
+      <input id="customerCity" type="text" placeholder="Ciudad / municipio" required>
+      <input id="customerAddress" type="text" placeholder="Dirección de entrega" required>
+      <div class="checkout-payments">Métodos de pago: <strong>Efectivo · Nequi · Bancolombia</strong></div>
+      <button type="submit" class="gold-button checkout-submit">FINALIZAR PEDIDO POR WHATSAPP</button>
+    </form>
+  </div>
   <div class="cart-footer"><div class="cart-total"><span>TOTAL</span><strong id="cartTotal">$0 COP</strong></div>
   <a id="cartWhatsapp" class="gold-button cart-whatsapp" target="_blank" rel="noopener">COMPRAR POR WHATSAPP</a></div>
 </aside>

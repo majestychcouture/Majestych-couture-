@@ -308,3 +308,16 @@ body.modal-open{overflow:hidden}
 .social-icon{width:26px;height:26px;display:inline-flex;align-items:center;justify-content:center;border:1px solid #c6a967;color:#c6a967;font-family:Arial,sans-serif;font-size:16px;font-weight:bold}
 .social-copy{margin:35px 0 0;color:#5f5b54;font-size:9px;letter-spacing:1px}
 @media(max-width:600px){.social-footer{margin-top:65px;padding-top:50px}.social-link{min-width:140px}}
+
+/* V9 checkout */
+.checkout-box{padding:16px 0;border-top:1px solid rgba(198,169,103,.18);margin-top:12px}
+.checkout-title{color:#e7d5a8;font-family:Georgia,serif;font-size:19px;letter-spacing:2px;margin-bottom:6px}
+.checkout-note{color:#aaa39a;font-size:10px;margin:0 0 12px}
+#checkoutForm{display:grid;gap:8px}
+#checkoutForm input{width:100%;box-sizing:border-box;min-height:42px;padding:0 11px;border:1px solid rgba(198,169,103,.2);background:#11110f;color:#eee;outline:none;font-size:12px}
+#checkoutForm input:focus{border-color:#c6a967}
+#checkoutForm input::placeholder{color:#77736c}
+.checkout-payments{color:#88837a;font-size:9px;line-height:1.5;padding:4px 0}
+.checkout-payments strong{color:#cfc6b3;font-weight:500}
+.checkout-submit{width:100%;min-height:46px;border:1px solid #c6a967;cursor:pointer;background:#c6a967;color:#080807;font-weight:700;letter-spacing:.8px}
+.view-product,.ver-producto,.product-view-button,.view-product-button,.view-product-btn{background:#080807!important;color:#e7d5a8!important;border:1px solid #c6a967!important}
