@@ -1,8 +1,64 @@
-const WHATSAPP="573244031690",BASE="https://majestychcouture.github.io/Majestych-couture-/";const products=[{id:1,name:"Conjunto NBA #1",price:74999,sizes:["S","M","L","XL"],image:"00f64e7e7bddb7e089292d505ea36360.jpeg"},{id:2,name:"Conjunto NBA #2",price:74999,sizes:["S","M","L","XL"],image:"0202a8a8c31727f8827e15d0c7bd9828.jpeg"},{id:3,name:"Conjunto NBA #3",price:74999,sizes:["S","M","L","XL"],image:"073f311d29a0006e18a7eb0ea2517d1a.jpeg"},{id:4,name:"Conjunto NBA #4",price:74999,sizes:["S","M","L","XL"],image:"437698d6dc23929c30b24b9927afdba2.jpeg"},{id:5,name:"Conjunto NBA #5",price:74999,sizes:["S","M","L","XL"],image:"631d2a1c8731e8f9c5562db96131e931.jpeg"},{id:6,name:"Conjunto NBA #6",price:74999,sizes:["S","M","L","XL"],image:"68f1b3fa169687ad3c5a8d54312b9c8a.jpeg"},{id:7,name:"Conjunto NBA #7",price:74999,sizes:["S","M","L","XL"],image:"844d43f2-ad15-4136-af0e-71177fb7b9ce.jpeg"},{id:8,name:"Conjunto NBA #8",price:74999,sizes:["S","M","L","XL"],image:"8ebd8237fc805674d9975e8ab8830603.jpeg"},{id:9,name:"Conjunto NBA #9",price:74999,sizes:["S","M","L","XL"],image:"a9598c06bee895805e527fbdf6f42d22.jpeg"},{id:10,name:"Conjunto NBA #10",price:74999,sizes:["S","M","L","XL"],image:"b5d4e421f6946d69a8895df61d3621a0.jpeg"},{id:11,name:"Conjunto NBA #11",price:74999,sizes:["S","M","L","XL"],image:"bc5221980047b5992b13f6f51655ac89.jpeg"},{id:12,name:"Conjunto NBA #12",price:74999,sizes:["S","M","L","XL"],image:"d519ba7729b89030aab8fa387ff93357.jpeg"}];let favorites=JSON.parse(localStorage.getItem("maj_favs")||"[]"),showFav=false;
-const money=new Intl.NumberFormat("es-CO"),grid=document.getElementById("productGrid"),search=document.getElementById("search"),size=document.getElementById("size"),price=document.getElementById("price"),favFilter=document.getElementById("favFilter");
-function imgUrl(f){return BASE+encodeURIComponent(f)}function wa(p){return "https://wa.me/"+WHATSAPP+"?text="+encodeURIComponent(`Hola, Majestych Couture. Estoy interesado(a) en ${p.name}. Precio: $${money.format(p.price)} COP. ¿Me indican disponibilidad de talla?`)}
-function toggleFav(id){favorites=favorites.includes(id)?favorites.filter(x=>x!==id):[...favorites,id];localStorage.setItem("maj_favs",JSON.stringify(favorites));render()}
-function render(){let q=search.value.trim().toLowerCase(),s=size.value,pr=price.value;let list=products.filter(p=>(!q||p.name.toLowerCase().includes(q))&&(!s||p.sizes.includes(s))&&(!pr||String(p.price)===pr)&&(!showFav||favorites.includes(p.id)));grid.innerHTML="";if(!list.length){grid.innerHTML='<div class="empty">No encontramos productos con esos filtros.</div>';return}list.forEach((p,i)=>{let c=document.createElement("article");c.className="card";c.innerHTML=`<button class="heart ${favorites.includes(p.id)?"on":""}">${favorites.includes(p.id)?"♥":"♡"}</button><div class="card-image"><img src="${imgUrl(p.image)}" alt="${p.name}" loading="${i<3?"eager":"lazy"}"></div><div class="card-body"><p class="tag">MAJESTYCH COUTURE</p><h3>${p.name}</h3><p class="meta"><b>Tallas:</b> S · M · L · XL<br><b>Color:</b> Único · según fotografía</p><div class="card-actions"><span class="price">$${money.format(p.price)} COP</span><a class="btn small" href="${wa(p)}" target="_blank">WHATSAPP</a></div></div>`;c.querySelector(".heart").onclick=()=>toggleFav(p.id);grid.appendChild(c)})}
-[search,size,price].forEach(x=>x.addEventListener("input",render));[size,price].forEach(x=>x.addEventListener("change",render));favFilter.onclick=()=>{showFav=!showFav;favFilter.classList.toggle("active",showFav);render()};
-const gallery=document.getElementById("galleryGrid");products.forEach(p=>{let im=document.createElement("img");im.src=imgUrl(p.image);im.alt=p.name;im.loading="lazy";gallery.appendChild(im)});
-document.getElementById("waMain").href=wa(products[0]);document.getElementById("waFloat").href=wa(products[0]);window.addEventListener("load",()=>setTimeout(()=>document.getElementById("splash").classList.add("hide"),1000));render();
+// MAJESTYCH COUTURE — V1.1
+// WhatsApp Colombia: código 57 + número, sin +, espacios ni guiones.
+const WHATSAPP_NUMBER = "573244031690";
+
+const products = [
+  {id:1, name:"Prenda destacada 01", image:"assets/producto-01.jpeg"},
+  {id:2, name:"Prenda destacada 02", image:"assets/producto-02.jpeg"},
+  {id:3, name:"Prenda destacada 03", image:"assets/producto-03.jpeg"},
+  {id:4, name:"Prenda destacada 04", image:"assets/producto-04.jpeg"},
+  {id:5, name:"Prenda destacada 05", image:"assets/producto-05.jpeg"},
+  {id:6, name:"Prenda destacada 06", image:"assets/producto-06.jpeg"},
+  {id:7, name:"Prenda destacada 07", image:"assets/producto-07.jpeg"},
+  {id:8, name:"Prenda destacada 08", image:"assets/producto-08.jpeg"},
+  {id:9, name:"Prenda destacada 09", image:"assets/producto-09.jpeg"},
+  {id:10, name:"Prenda destacada 10", image:"assets/producto-10.jpeg"},
+  {id:11, name:"Prenda destacada 11", image:"assets/producto-11.jpeg"}
+];
+
+function waLink(productName="una prenda"){
+  const text = encodeURIComponent(
+    `Hola, Majestych Couture. Estoy interesado(a) en ${productName}. ¿Me pueden indicar precio, tallas y disponibilidad?`
+  );
+  return `https://wa.me/${WHATSAPP_NUMBER}?text=${text}`;
+}
+
+const grid = document.getElementById("productGrid");
+
+products.forEach((product) => {
+  const card = document.createElement("article");
+  card.className = "card";
+  card.innerHTML = `
+    <div class="card-image">
+      <img src="${product.image}" alt="${product.name}" loading="lazy">
+    </div>
+    <div class="card-body">
+      <p class="tag">ROPA · CONSULTAR</p>
+      <h3>${product.name}</h3>
+      <p class="muted">Consulta precio, tallas y disponibilidad.</p>
+      <div class="card-actions">
+        <span class="price">COP · CONSULTAR</span>
+        <a class="btn small" href="${waLink(product.name)}" target="_blank" rel="noopener">WHATSAPP</a>
+      </div>
+    </div>
+  `;
+  grid.appendChild(card);
+});
+
+document.querySelectorAll(".card-image img").forEach(img => {
+  if (img.complete) img.classList.add("loaded");
+  img.addEventListener("load", () => img.classList.add("loaded"));
+  img.addEventListener("error", () => {
+    img.parentElement.innerHTML = '<div style="height:100%;display:flex;align-items:center;justify-content:center;color:#777;font-size:11px;letter-spacing:1px">IMAGEN NO DISPONIBLE</div>';
+  });
+});
+
+const mainWa = document.getElementById("waMain");
+const floatWa = document.getElementById("waFloat");
+const generalWa = waLink("una de sus prendas");
+mainWa.href = generalWa;
+floatWa.href = generalWa;
+
+window.addEventListener("load", () => {
+  setTimeout(() => document.getElementById("splash").classList.add("hide"), 1400);
+});
