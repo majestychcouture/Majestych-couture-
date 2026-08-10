@@ -38,10 +38,18 @@ function renderProducts(){
  const box=document.getElementById("products");
  box.innerHTML=products.map((p,i)=>`
  <article class="product" data-index="${i}">
-   <div class="product-image-wrap"><img src="${p.image}" alt="${p.name}" loading="lazy"></div>
-   <div class="product-info"><h3>${p.name}</h3><p>$${money(p.price)} COP</p></div>
+   <div class="product-image"><img src="${p.image}" alt="${p.name}" loading="lazy"></div>
+   <div class="product-info">
+     <h3 class="product-name">${p.name}</h3>
+     <p class="product-price">$${money(p.price)} COP</p>
+     <button type="button" class="gold-button product-button">VER PRODUCTO</button>
+   </div>
  </article>`).join("");
- box.querySelectorAll(".product").forEach(c=>c.onclick=()=>openProduct(products[+c.dataset.index]));
+ box.querySelectorAll(".product").forEach(c=>{
+   c.onclick=()=>openProduct(products[+c.dataset.index]);
+   const b=c.querySelector(".product-button");
+   if(b) b.onclick=e=>{e.stopPropagation();openProduct(products[+c.dataset.index]);};
+ });
 }
 
 function renderCart(){
