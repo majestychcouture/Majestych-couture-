@@ -85,133 +85,69 @@ document.addEventListener("keydown",(event)=>{
   if(event.key === "Escape") closeProduct();
 });
 
-/* ===== V7 CLEAN · CART ===== */
-(() => {
-  const CART_KEY = "majestych_cart_v7";
-  let cart = JSON.parse(localStorage.getItem(CART_KEY) || "[]");
-  let currentProduct = null;
-  let currentSize = null;
-  let currentQty = 1;
-
-  const $ = id => document.getElementById(id);
-  const modal = $("productModal");
-  const addBtn = $("addCartButton");
-  const sizeBtns = document.querySelectorAll(".size-option");
-  const qtyText = $("modalQty");
-  const qtyMinus = $("modalQtyMinus");
-  const qtyPlus = $("modalQtyPlus");
-  const error = $("sizeError");
-
-  function save(){ localStorage.setItem(CART_KEY, JSON.stringify(cart)); }
-  function totalQty(){ return cart.reduce((n,x)=>n+x.quantity,0); }
-  function total(){ return cart.reduce((n,x)=>n+x.price*x.quantity,0); }
-  function moneyValue(n){ return new Intl.NumberFormat("es-CO").format(n); }
+/* ===== V7 DIRECT CART: simple, independent path ===== */
+(function(){
+  const KEY="majestych_direct_cart";
+  let cart=JSON.parse(localStorage.getItem(KEY)||"[]");
+  const money=n=>new Intl.NumberFormat("es-CO").format(n);
 
   function render(){
-    const count = $("cartCount"), items = $("cartItems"), sum = $("cartTotal"), wa = $("cartWhatsapp");
-    if(count) count.textContent = totalQty();
-    if(!items) return;
-    if(!cart.length){
-      items.innerHTML = '<div class="cart-empty">Tu carrito está vacío.<br>Elige un conjunto y agrega una talla.</div>';
-    } else {
-      items.innerHTML = cart.map((x,i) => `
-        <div class="cart-item">
-          <img src="${x.image}" alt="${x.name}">
-          <div>
-            <h3 class="cart-item-name">${x.name}</h3>
-            <p class="cart-item-meta">Talla: <strong>${x.size}</strong></p>
-            <p class="cart-item-price">$${moneyValue(x.price)} COP</p>
-            <div class="qty-control">
-              <button type="button" data-minus="${i}">−</button>
-              <span>${x.quantity}</span>
-              <button type="button" data-plus="${i}">+</button>
-            </div>
-          </div>
-          <button type="button" class="remove-item" data-remove="${i}">×</button>
-        </div>`).join("");
-      items.querySelectorAll("[data-minus]").forEach(b=>b.onclick=()=>change(+b.dataset.minus,-1));
-      items.querySelectorAll("[data-plus]").forEach(b=>b.onclick=()=>change(+b.dataset.plus,1));
-      items.querySelectorAll("[data-remove]").forEach(b=>b.onclick=()=>remove(+b.dataset.remove));
-    }
-    sum.textContent = "$" + moneyValue(total()) + " COP";
-    const lines = cart.map(x=>`${x.name} — Talla ${x.size} — x${x.quantity} — $${moneyValue(x.price*x.quantity)} COP`);
-    const msg = cart.length
-      ? "Hola, Majestych Couture. Quiero realizar este pedido:\n\n"+lines.join("\n")+"\n\nTotal: $"+moneyValue(total())+" COP"
-      : "Hola, Majestych Couture. Quiero información sobre la colección NBA.";
-    wa.href = "https://wa.me/573244031690?text="+encodeURIComponent(msg);
+    const count=document.getElementById("cartCount");
+    const items=document.getElementById("cartItems");
+    const totalEl=document.getElementById("cartTotal");
+    const wa=document.getElementById("cartWhatsapp");
+    if(count) count.textContent=cart.reduce((a,x)=>a+x.qty,0);
+    if(!items)return;
+    if(!cart.length){items.innerHTML='<div class="cart-empty">Tu carrito está vacío.<br>Agrega un producto desde su tarjeta.</div>'}
+    else items.innerHTML=cart.map((x,i)=>`
+      <div class="cart-item">
+        <img src="${x.image}" alt="${x.name}">
+        <div><h3 class="cart-item-name">${x.name}</h3>
+        <div class="cart-item-meta">Talla: ${x.size}</div>
+        <div class="cart-item-price">$${money(x.price)} COP</div>
+        <div class="cart-qty"><button data-m="${i}">−</button><span>${x.qty}</span><button data-p="${i}">+</button></div></div>
+        <button class="cart-remove" data-r="${i}">×</button>
+      </div>`).join("");
+    const total=cart.reduce((a,x)=>a+x.price*x.qty,0);
+    totalEl.textContent="$"+money(total)+" COP";
+    const lines=cart.map(x=>`${x.name} — Talla ${x.size} — x${x.qty} — $${money(x.price*x.qty)} COP`);
+    wa.href="https://wa.me/573244031690?text="+encodeURIComponent("Hola, Majestych Couture. Quiero realizar este pedido:\n\n"+lines.join("\n")+"\n\nTotal: $"+money(total)+" COP");
+    items.querySelectorAll("[data-m]").forEach(b=>b.onclick=()=>{let i=+b.dataset.m;if(cart[i].qty>1)cart[i].qty--;else cart.splice(i,1);save()});
+    items.querySelectorAll("[data-p]").forEach(b=>b.onclick=()=>{cart[+b.dataset.p].qty++;save()});
+    items.querySelectorAll("[data-r]").forEach(b=>b.onclick=()=>{cart.splice(+b.dataset.r,1);save()});
+  }
+  function save(){localStorage.setItem(KEY,JSON.stringify(cart));render()}
+  function openCart(){document.getElementById("cartDrawer").classList.add("open");document.getElementById("cartOverlay").classList.add("open");render()}
+  function closeCart(){document.getElementById("cartDrawer").classList.remove("open");document.getElementById("cartOverlay").classList.remove("open")}
+  document.getElementById("cartButton").onclick=openCart;
+  document.getElementById("cartClose").onclick=closeCart;
+  document.getElementById("cartOverlay").onclick=closeCart;
+
+  function add(product,size){
+    const found=cart.find(x=>x.id===product.id&&x.size===size);
+    if(found)found.qty++;else cart.push({id:product.id,name:product.name,image:product.image,price:product.price,size,qty:1});
+    save();openCart();
   }
 
-  function change(i,d){
-    cart[i].quantity += d;
-    if(cart[i].quantity < 1) cart.splice(i,1);
-    save(); render();
-  }
-  function remove(i){ cart.splice(i,1); save(); render(); }
-
-  // Capture product selection without relying on card class names.
-  document.addEventListener("click", e => {
-    const card = e.target.closest("[data-product-index]");
-    if(!card || e.target.closest("a,button")) return;
-    const index = Number(card.dataset.productIndex);
-    if(!Number.isInteger(index) || !window.products || !products[index]) return;
-    currentProduct = products[index];
-    currentSize = null; currentQty = 1;
-    sizeBtns.forEach(b=>b.classList.remove("selected"));
-    error.classList.remove("show");
-    if(qtyText) qtyText.textContent = "1";
-    if(typeof openProduct === "function") openProduct(currentProduct);
+  // Inject two actions directly into each product card: WhatsApp + Cart.
+  const cards=document.querySelectorAll(".product,.product-card,.card");
+  cards.forEach((card,i)=>{
+    if(!window.products||!products[i]||card.querySelector(".direct-cart-row"))return;
+    const p=products[i];
+    const row=document.createElement("div");
+    row.className="direct-cart-row";
+    row.innerHTML='<button type="button" class="direct-cart-btn">🛒 AGREGAR AL CARRITO</button><a class="direct-wa-btn" target="_blank" rel="noopener" aria-label="WhatsApp">⌕</a>';
+    const wa=row.querySelector(".direct-wa-btn");
+    wa.href="https://wa.me/573244031690?text="+encodeURIComponent("Hola, Majestych Couture. Estoy interesado en "+p.name+" por $"+money(p.price)+" COP.");
+    row.querySelector(".direct-cart-btn").onclick=()=>{
+      // First click chooses size with a tiny native prompt. This avoids the broken modal entirely.
+      const size=window.prompt("Selecciona tu talla: S, M, L o XL","M");
+      if(!size)return;
+      const normalized=size.trim().toUpperCase();
+      if(!["S","M","L","XL"].includes(normalized)){window.alert("Talla no válida. Usa S, M, L o XL.");return}
+      add(p,normalized);
+    };
+    card.appendChild(row);
   });
-
-  // Also support existing cards if they don't have data-product-index.
-  const cards = document.querySelectorAll(".product, .product-card, .card");
-  cards.forEach((card,index)=>{
-    card.dataset.productIndex = index;
-    card.addEventListener("click", e=>{
-      if(e.target.closest("a,button")) return;
-      if(!window.products || !products[index]) return;
-      currentProduct=products[index]; currentSize=null; currentQty=1;
-      sizeBtns.forEach(b=>b.classList.remove("selected"));
-      error.classList.remove("show");
-      if(qtyText) qtyText.textContent="1";
-      if(typeof openProduct==="function") openProduct(currentProduct);
-    });
-  });
-
-  sizeBtns.forEach(b=>b.addEventListener("click",()=>{
-    currentSize=b.dataset.size;
-    sizeBtns.forEach(x=>x.classList.remove("selected"));
-    b.classList.add("selected");
-    error.classList.remove("show");
-  }));
-
-  if(qtyMinus) qtyMinus.onclick=()=>{currentQty=Math.max(1,currentQty-1);qtyText.textContent=currentQty};
-  if(qtyPlus) qtyPlus.onclick=()=>{currentQty++;qtyText.textContent=currentQty};
-
-  addBtn.onclick=()=>{
-    if(!currentProduct) return;
-    if(!currentSize){error.classList.add("show");return;}
-    const found=cart.find(x=>x.productId===currentProduct.id && x.size===currentSize);
-    if(found) found.quantity += currentQty;
-    else cart.push({productId:currentProduct.id,name:currentProduct.name,image:currentProduct.image,price:currentProduct.price,size:currentSize,quantity:currentQty});
-    save(); render();
-    if(typeof closeProduct==="function") closeProduct();
-    $("cartDrawer").classList.add("open");
-    $("cartOverlay").classList.add("open");
-  };
-
-  $("cartButton").onclick=()=>{
-    $("cartDrawer").classList.add("open");
-    $("cartOverlay").classList.add("open");
-    render();
-  };
-  $("cartClose").onclick=()=>{
-    $("cartDrawer").classList.remove("open");
-    $("cartOverlay").classList.remove("open");
-  };
-  $("cartOverlay").onclick=()=>{
-    $("cartDrawer").classList.remove("open");
-    $("cartOverlay").classList.remove("open");
-  };
-
   render();
 })();

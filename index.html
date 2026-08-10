@@ -11,7 +11,7 @@
 
 <header class="header">
   <a class="brand" href="#inicio">MAJESTYCH</a>
-  <button type="button" class="cart-button" id="cartButton" aria-label="Abrir carrito">🛒 <span id="cartCount">0</span></button><nav>
+  <button type="button" class="cart-button" id="cartButton">🛒 <span id="cartCount">0</span></button><nav>
     <a href="#inicio">INICIO</a>
     <a href="#catalogo">CATÁLOGO</a>
     <a href="#contacto">CONTACTO</a>
@@ -58,16 +58,11 @@
 
 
 <div class="cart-overlay" id="cartOverlay"></div>
-<aside class="cart-drawer" id="cartDrawer" aria-hidden="true">
-  <div class="cart-header">
-    <div><p class="eyebrow">MAJESTYCH COUTURE</p><h2>Tu carrito</h2></div>
-    <button type="button" class="cart-close" id="cartClose" aria-label="Cerrar carrito">×</button>
-  </div>
-  <div class="cart-items" id="cartItems"></div>
-  <div class="cart-footer">
-    <div class="cart-total"><span>TOTAL</span><strong id="cartTotal">$0 COP</strong></div>
-    <a class="gold-button cart-whatsapp" id="cartWhatsapp" href="#" target="_blank" rel="noopener">COMPRAR POR WHATSAPP</a>
-  </div>
+<aside class="cart-drawer" id="cartDrawer">
+  <div class="cart-header"><div><p class="eyebrow">MAJESTYCH COUTURE</p><h2>Tu carrito</h2></div><button type="button" id="cartClose">×</button></div>
+  <div id="cartItems" class="cart-items"></div>
+  <div class="cart-footer"><div class="cart-total"><span>TOTAL</span><strong id="cartTotal">$0 COP</strong></div>
+  <a id="cartWhatsapp" class="gold-button cart-whatsapp" target="_blank" rel="noopener">COMPRAR POR WHATSAPP</a></div>
 </aside>
 <div class="product-modal" id="productModal" aria-hidden="true">
   <div class="modal-backdrop" id="modalBackdrop"></div>
@@ -78,26 +73,11 @@
       <p class="eyebrow">MAJESTYCH COUTURE</p>
       <h2 id="modalName">Conjunto NBA #1</h2>
       <p class="modal-price" id="modalPrice">$74.999 COP</p>
-      <div class="size-picker">
-        <span class="size-picker-label">SELECCIONA TU TALLA</span>
-        <div class="size-options">
-          <button type="button" class="size-option" data-size="S">S</button>
-          <button type="button" class="size-option" data-size="M">M</button>
-          <button type="button" class="size-option" data-size="L">L</button>
-          <button type="button" class="size-option" data-size="XL">XL</button>
-        </div>
-        <p class="size-error" id="sizeError">Selecciona una talla para continuar.</p>
-      </div>
-      <div class="quantity-picker">
-        <span class="size-picker-label">CANTIDAD</span>
-        <div class="quantity-control">
-          <button type="button" id="modalQtyMinus">−</button>
-          <span id="modalQty">1</span>
-          <button type="button" id="modalQtyPlus">+</button>
-        </div>
-      </div>
-      <button type="button" class="add-cart-button" id="addCartButton">AGREGAR AL CARRITO</button>
-      <button type="button" class="back-button" id="modalBack">← VOLVER A LA COLECCIÓN</button>
+      <p class="modal-note">Tallas disponibles: <strong>S · M · L · XL</strong></p>
+      <a class="gold-button modal-whatsapp" id="modalWhatsapp" href="#" target="_blank" rel="noopener">
+        COMPRAR POR WHATSAPP
+      </a>
+      <button class="back-button" id="modalBack">← VOLVER A LA COLECCIÓN</button>
     </div>
   </div>
 </div>
