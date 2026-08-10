@@ -49,7 +49,6 @@ const productModal = document.getElementById("productModal");
 const modalImage = document.getElementById("modalImage");
 const modalName = document.getElementById("modalName");
 const modalPrice = document.getElementById("modalPrice");
-const modalWhatsapp = document.getElementById("modalWhatsapp");
 const modalClose = document.getElementById("modalClose");
 const modalBack = document.getElementById("modalBack");
 const modalBackdrop = document.getElementById("modalBackdrop");
@@ -59,7 +58,6 @@ function openProduct(product){
   modalImage.alt = product.name;
   modalName.textContent = product.name;
   modalPrice.textContent = "$" + money.format(product.price) + " COP";
-  modalWhatsapp.href = whatsappLink(product);
   productModal.classList.add("open");
   productModal.setAttribute("aria-hidden","false");
   document.body.classList.add("modal-open");
@@ -71,12 +69,6 @@ function closeProduct(){
   document.body.classList.remove("modal-open");
 }
 
-document.querySelectorAll(".product").forEach((card,index)=>{
-  card.addEventListener("click",(event)=>{
-    if(event.target.closest("a")) return;
-    openProduct(products[index]);
-  });
-});
 
 modalClose.addEventListener("click",closeProduct);
 modalBack.addEventListener("click",closeProduct);
@@ -241,16 +233,17 @@ openProduct = function(product){
 updateCartCount();
 renderCart();
 
-/* ===== V7 FIX 2 · PRODUCT MODAL CLICK ===== */
-document.querySelectorAll("#products .product").forEach((card, index) => {
-  card.addEventListener("click", (event) => {
-    if (event.target.closest("a, button")) return;
-    if (!products[index]) return;
-
-    selectedProduct = products[index];
-    selectedSize = null;
-    sizeButtons.forEach(button => button.classList.remove("selected"));
-    sizeError.classList.remove("show");
-    openProduct(products[index]);
-  });
+/* ===== V7 FIX 3 · PRODUCT MODAL ===== */
+document.getElementById("products").addEventListener("click", function(event){
+  if (event.target.closest("a, button")) return;
+  const card = event.target.closest(".product");
+  if (!card) return;
+  const cards = Array.from(document.querySelectorAll("#products .product"));
+  const index = cards.indexOf(card);
+  if (index === -1 || !products[index]) return;
+  selectedProduct = products[index];
+  selectedSize = null;
+  sizeButtons.forEach(b => b.classList.remove("selected"));
+  sizeError.classList.remove("show");
+  openProduct(products[index]);
 });
