@@ -348,3 +348,8 @@ body.modal-open{overflow:hidden}
   background:#c6a967;
   color:#080807;
 }
+
+/* V9.1 CORREGIDA — el carrito completo permite volver arriba */
+.cart-drawer{
+  overflow-y:auto !important;
+}

@@ -113,9 +113,17 @@ window.open("https://wa.me/"+WHATSAPP+"?text="+encodeURIComponent(msg),"_blank")
 /* V9.1 — volver a editar/eliminar productos del carrito */
 (function(){
   const back=document.getElementById("backToCart");
+  const drawer=document.getElementById("cartDrawer");
   const items=document.getElementById("cartItems");
-  if(!back || !items) return;
-  back.addEventListener("click",function(){
+  if(!back || !drawer || !items) return;
+  back.addEventListener("click",function(e){
+    e.preventDefault();
+    e.stopPropagation();
+    drawer.scrollTo({top:0,behavior:"smooth"});
     items.scrollTo({top:0,behavior:"smooth"});
+    setTimeout(function(){
+      const first=items.querySelector(".cart-item");
+      if(first) first.scrollIntoView({behavior:"smooth",block:"start"});
+    },100);
   });
 })();
