@@ -108,3 +108,14 @@ const msg="Hola, Majestych Couture. Quiero realizar este pedido:\n\n"+items+"\n\
 window.open("https://wa.me/"+WHATSAPP+"?text="+encodeURIComponent(msg),"_blank");
 });
 })();
+
+
+/* V9.1 — volver a editar/eliminar productos del carrito */
+(function(){
+  const back=document.getElementById("backToCart");
+  const items=document.getElementById("cartItems");
+  if(!back || !items) return;
+  back.addEventListener("click",function(){
+    items.scrollTo({top:0,behavior:"smooth"});
+  });
+})();
