@@ -110,20 +110,50 @@ window.open("https://wa.me/"+WHATSAPP+"?text="+encodeURIComponent(msg),"_blank")
 })();
 
 
-/* V9.1 — volver a editar/eliminar productos del carrito */
+
+
+/* V9.2 — EDITAR CARRITO FUNCIONAL */
 (function(){
-  const back=document.getElementById("backToCart");
-  const drawer=document.getElementById("cartDrawer");
-  const items=document.getElementById("cartItems");
-  if(!back || !drawer || !items) return;
-  back.addEventListener("click",function(e){
-    e.preventDefault();
-    e.stopPropagation();
-    drawer.scrollTo({top:0,behavior:"smooth"});
-    items.scrollTo({top:0,behavior:"smooth"});
-    setTimeout(function(){
-      const first=items.querySelector(".cart-item");
-      if(first) first.scrollIntoView({behavior:"smooth",block:"start"});
-    },100);
-  });
+  function initEditCart(){
+    const btn = document.getElementById("backToCart");
+    const drawer = document.getElementById("cartDrawer");
+    const items = document.getElementById("cartItems");
+    const checkout = document.querySelector(".checkout-box");
+    const form = document.getElementById("checkoutForm");
+    if(!btn || !drawer || !items || !checkout || !form) return;
+
+    btn.onclick = function(e){
+      e.preventDefault();
+      e.stopPropagation();
+
+      const editing = drawer.classList.toggle("editing-cart");
+
+      if(editing){
+        btn.textContent = "✓ VOLVER A DATOS DE ENVÍO";
+        form.style.display = "none";
+        const note = checkout.querySelector(".checkout-note");
+        const payments = checkout.querySelector(".checkout-payments");
+        if(note) note.style.display = "none";
+        if(payments) payments.style.display = "none";
+
+        items.scrollTop = 0;
+        const first = items.querySelector(".cart-item");
+        if(first) first.scrollIntoView({behavior:"smooth", block:"start"});
+      } else {
+        btn.textContent = "← EDITAR MI CARRITO";
+        form.style.display = "grid";
+        const note = checkout.querySelector(".checkout-note");
+        const payments = checkout.querySelector(".checkout-payments");
+        if(note) note.style.display = "";
+        if(payments) payments.style.display = "";
+        checkout.scrollIntoView({behavior:"smooth", block:"nearest"});
+      }
+    };
+  }
+
+  if(document.readyState === "loading"){
+    document.addEventListener("DOMContentLoaded", initEditCart);
+  }else{
+    initEditCart();
+  }
 })();

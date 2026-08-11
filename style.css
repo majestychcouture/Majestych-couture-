@@ -353,3 +353,12 @@ body.modal-open{overflow:hidden}
 .cart-drawer{
   overflow-y:auto !important;
 }
+
+/* V9.2 — estado de edición */
+.cart-drawer.editing-cart .checkout-box{
+  border-color:rgba(198,169,103,.38);
+}
+.cart-drawer.editing-cart .cart-items{
+  outline:1px solid rgba(198,169,103,.12);
+  outline-offset:-1px;
+}
