@@ -1,29 +1,38 @@
-MAJESTYCH COUTURE — V10
-=========================
+MAJESTYCH COUTURE — V10.4
+===========================
 
-Esta versión agrega:
-- Departamento + municipio.
-- Envío automático:
-  Medellín $13.000
-  Bello/Envigado/Sabaneta/La Estrella $15.000
-  Resto de Antioquia $20.000
-  Fuera de Antioquia $22.000
-- Subtotal, envío y total.
-- Pago contra entrega por WhatsApp.
+BASE
+----
+Esta versión parte directamente de V10.3 ESTABLE.
+No se modificaron los productos, fotos ni la lógica existente del carrito.
 
-PAGO ONLINE WOMPI
------------------
-La documentación actual de Wompi exige una firma de integridad para cada transacción
-y recomienda generarla en servidor, no en el frontend. Por seguridad, esta V10 NO
-incluye ningún secreto de Wompi en GitHub.
+PAGO
+----
+Se añadió la presentación de:
+"PAGAR AHORA · PSE · NEQUI · BANCOLOMBIA"
 
-El archivo wompi-worker.js es una plantilla para un servidor serverless.
-Debes configurarlo con estas variables secretas:
-  WOMPI_INTEGRITY_SECRET = tu secreto prod_integrity_... de Wompi
-  WOMPI_PUBLIC_KEY = pub_prod_...
-  ALLOWED_ORIGIN = https://TU-USUARIO.github.io
+La llave pública de producción está configurada en script.js.
 
-Después de desplegarlo, el botón "PAGAR AHORA" se conecta a ese endpoint para
-obtener la firma y abrir el checkout de Wompi.
+IMPORTANTE
+----------
+El botón NO intenta cobrar todavía porque falta el servidor seguro que genera
+la firma de integridad de Wompi. No se debe poner prod_integrity_... en GitHub.
 
-IMPORTANTE: nunca subas prod_integrity_... ni prv_prod_... a GitHub.
+SIGUIENTE PASO
+--------------
+1. Crear un servidor/Cloudflare Worker.
+2. Guardar allí el secreto de integridad de Wompi.
+3. El Worker genera SHA-256 con:
+   referencia + monto_en_centavos + "COP" + secreto_de_integridad
+4. Conectar la URL /sign en script.js.
+5. Entonces el botón podrá abrir el checkout real.
+
+NO COMPARTIR
+------------
+Nunca compartas:
+- prv_prod_...
+- prod_integrity_...
+- contraseñas
+- códigos de seguridad
+
+La llave pública pub_prod_... sí puede estar en el frontend.

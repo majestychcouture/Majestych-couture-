@@ -175,3 +175,49 @@ updateShipping();
     initEditCart();
   }
 })();
+
+/* V10.4 — Wompi: preparado sin tocar el carrito */
+(function(){
+  const WOMPI_PUBLIC_KEY = "pub_prod_1Ey0CFFaJIlSqFMPAXiorvFjOuvYetmP";
+  const WOMPI_SIGNING_ENDPOINT = ""; // Se completa después con tu Worker seguro.
+
+  function getOrderTotal(){
+    // Try common total elements used by the existing stable version.
+    const candidates = [
+      document.querySelector("#cartTotal"),
+      document.querySelector(".cart-total"),
+      document.querySelector("[data-cart-total]")
+    ];
+    for(const el of candidates){
+      if(el){
+        const n = parseInt((el.textContent||"").replace(/\D/g,""),10);
+        if(Number.isFinite(n) && n>0) return n;
+      }
+    }
+    return 0;
+  }
+
+  function wireOnlinePayment(){
+    const btn = document.getElementById("payOnlineBtn");
+    if(!btn) return;
+    btn.addEventListener("click", function(){
+      const total = getOrderTotal();
+      if(!total){
+        alert("Primero agrega un producto al carrito y verifica el total.");
+        return;
+      }
+      if(!WOMPI_SIGNING_ENDPOINT){
+        alert("El pago en línea está preparado, pero falta conectar la firma segura de Wompi. Tu opción de pago contra entrega sigue funcionando.");
+        return;
+      }
+      // The real checkout is intentionally enabled only after the secure signer exists.
+      console.log("Wompi public key:", WOMPI_PUBLIC_KEY);
+    });
+  }
+
+  if(document.readyState==="loading"){
+    document.addEventListener("DOMContentLoaded", wireOnlinePayment);
+  } else {
+    wireOnlinePayment();
+  }
+})();
