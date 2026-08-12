@@ -34,6 +34,60 @@
 }
 </style>
 
+
+<style>
+/* V10.5.1 — pago visible y fijo dentro del carrito */
+.payment-online-card{
+  display:grid;
+  grid-template-columns:42px 1fr;
+  gap:10px 12px;
+  align-items:center;
+  padding:14px;
+  margin:10px 0;
+  border:1px solid rgba(198,169,103,.35);
+  border-radius:12px;
+  background:rgba(255,255,255,.02);
+}
+.payment-online-icon{
+  grid-row:1 / span 2;
+  width:42px;height:42px;
+  display:grid;place-items:center;
+  border:1px solid rgba(198,169,103,.55);
+  border-radius:9px;
+  color:#c6a967;
+}
+.payment-online-copy strong,.payment-cod strong{
+  display:block;
+  font-size:12px;
+  letter-spacing:.07em;
+}
+.payment-online-copy span,.payment-cod span{
+  display:block;
+  margin-top:3px;
+  font-size:11px;
+  opacity:.68;
+}
+.payment-online-card .checkout-pay-btn{
+  grid-column:1 / -1;
+  width:100%;
+  min-height:48px;
+  padding:12px 16px;
+  border:1px solid rgba(198,169,103,.7);
+  border-radius:10px;
+  background:linear-gradient(180deg,#d2b66f,#c6a967);
+  color:#080808;
+  font-weight:800;
+  letter-spacing:.04em;
+  cursor:pointer;
+}
+.payment-cod{
+  margin-top:10px;
+  padding:13px 14px;
+  border:1px solid rgba(255,255,255,.10);
+  border-radius:10px;
+}
+</style>
+
 </head>
 <body>
 
@@ -99,7 +153,20 @@
 <input id="customerCity" type="text" placeholder="Ciudad / municipio" required>
 <input id="customerAddress" type="text" placeholder="Dirección de entrega" required>
 <div id="shippingSummary" class="checkout-payments">Envío: <strong>Selecciona tu departamento y municipio</strong></div>
-<div id="paymentOptions" class="checkout-payments">Forma de pago: <strong>Contra entrega</strong><br><span>Pago en línea (PSE · Nequi · Bancolombia) se activará al conectar la cuenta de pagos.</span></div>
+<div id="paymentOptions" class="checkout-payments">
+  <div class="payment-online-card">
+    <div class="payment-online-icon" aria-hidden="true">▣</div>
+    <div class="payment-online-copy">
+      <strong>PAGO EN LÍNEA</strong>
+      <span>Nequi · Bancolombia · PSE · Tarjetas</span>
+    </div>
+    <button type="button" id="payOnlineBtn" class="checkout-pay-btn">PAGAR AHORA</button>
+  </div>
+  <div class="payment-cod">
+    <strong>PAGO CONTRA ENTREGA</strong>
+    <span>Efectivo al recibir tu pedido</span>
+  </div>
+</div>
 <button type="submit" class="checkout-submit">FINALIZAR PEDIDO POR WHATSAPP</button>
 </form></section>
 <div class="cart-footer"><div class="cart-total"><span>TOTAL</span><strong id="cartTotal">$0 COP</strong></div>

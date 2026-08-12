@@ -1,0 +1,13 @@
+V10.5.1
+
+Base: V10.5-CORREGIDA.
+
+Se corrigió la inconsistencia del botón de pago:
+- El botón PAGAR AHORA ahora existe físicamente dentro de #paymentOptions.
+- No depende de HTML inyectado ni de una versión anterior en caché.
+- No se modificó script.js.
+- No se modificaron productos, fotos, carrito, tallas, edición del carrito,
+  WhatsApp ni tarifas de envío.
+
+El botón usa id="payOnlineBtn", por lo que conserva el manejador de pago
+que ya estaba en script.js.
