@@ -14,12 +14,26 @@
 </style>
 
 <style>
-.premium-payment-card{display:flex;align-items:center;gap:12px;margin:12px 0;padding:14px 15px;border:1px solid rgba(198,169,103,.28);border-radius:12px;background:rgba(255,255,255,.025)}
-.premium-payment-icon{width:36px;height:36px;display:grid;place-items:center;border:1px solid rgba(198,169,103,.45);border-radius:8px;color:#c6a967;font-size:17px;flex:0 0 36px}
-.premium-payment-copy{min-width:0;flex:1}.premium-payment-title{font-size:12px;font-weight:800;letter-spacing:.08em}.premium-payment-subtitle{margin-top:3px;font-size:10px;opacity:.68}
-.premium-payment-button{border:1px solid #c6a967;background:#c6a967;color:#080808;border-radius:8px;padding:10px 13px;font-weight:800;font-size:10px;letter-spacing:.04em;cursor:pointer;white-space:nowrap}
-@media(max-width:420px){.premium-payment-card{flex-wrap:wrap}.premium-payment-button{width:100%}}
+/* V10.5: estilo premium del único botón de pago, sin tocar JavaScript */
+#payOnlineBtn.checkout-pay-btn{
+  width:100%;
+  min-height:54px;
+  padding:14px 18px;
+  border:1px solid rgba(198,169,103,.65);
+  border-radius:12px;
+  background:linear-gradient(180deg,#d2b66f,#c6a967);
+  color:#080808;
+  font-weight:800;
+  letter-spacing:.04em;
+  cursor:pointer;
+  box-shadow:0 8px 22px rgba(0,0,0,.18);
+}
+#payOnlineBtn.checkout-pay-btn:hover{filter:brightness(1.04)}
+#paymentOptions{
+  line-height:1.6;
+}
 </style>
+
 </head>
 <body>
 
@@ -86,14 +100,6 @@
 <input id="customerAddress" type="text" placeholder="Dirección de entrega" required>
 <div id="shippingSummary" class="checkout-payments">Envío: <strong>Selecciona tu departamento y municipio</strong></div>
 <div id="paymentOptions" class="checkout-payments">Forma de pago: <strong>Contra entrega</strong><br><span>Pago en línea (PSE · Nequi · Bancolombia) se activará al conectar la cuenta de pagos.</span></div>
-<section class="premium-payment-card" aria-label="Pago en línea">
-  <div class="premium-payment-icon" aria-hidden="true">▣</div>
-  <div class="premium-payment-copy">
-    <div class="premium-payment-title">PAGO EN LÍNEA</div>
-    <div class="premium-payment-subtitle">Nequi · Bancolombia · PSE · Tarjetas</div>
-  </div>
-  <button type="button" id="payOnlineBtn" class="premium-payment-button">PAGAR AHORA</button>
-</section>
 <button type="submit" class="checkout-submit">FINALIZAR PEDIDO POR WHATSAPP</button>
 </form></section>
 <div class="cart-footer"><div class="cart-total"><span>TOTAL</span><strong id="cartTotal">$0 COP</strong></div>
@@ -151,7 +157,6 @@
     <p class="social-copy">© 2026 MAJESTYCH COUTURE · TODOS LOS DERECHOS RESERVADOS</p>
   </div>
 </footer>
-
 
 
 

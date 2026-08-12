@@ -1,0 +1,14 @@
+V10.5 CORREGIDA
+
+Base: V10.4 que estaba funcionando.
+
+Cambio realizado:
+- Se eliminó el segundo botón de pago que aparecía al final de la página.
+- Se conserva un solo botón de pago dentro del carrito.
+- El botón ahora tiene un diseño negro/dorado premium.
+- NO se modificó script.js.
+- NO se modificaron productos, fotos, carrito, tallas, WhatsApp ni cálculo de envío.
+
+IMPORTANTE:
+El botón de pago de V10.4 todavía requiere conectar el servidor seguro de firma
+de Wompi para realizar un cobro real. Esta versión NO inventa ni simula un pago.
