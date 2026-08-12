@@ -1,0 +1,29 @@
+MAJESTYCH COUTURE — V10
+=========================
+
+Esta versión agrega:
+- Departamento + municipio.
+- Envío automático:
+  Medellín $13.000
+  Bello/Envigado/Sabaneta/La Estrella $15.000
+  Resto de Antioquia $20.000
+  Fuera de Antioquia $22.000
+- Subtotal, envío y total.
+- Pago contra entrega por WhatsApp.
+
+PAGO ONLINE WOMPI
+-----------------
+La documentación actual de Wompi exige una firma de integridad para cada transacción
+y recomienda generarla en servidor, no en el frontend. Por seguridad, esta V10 NO
+incluye ningún secreto de Wompi en GitHub.
+
+El archivo wompi-worker.js es una plantilla para un servidor serverless.
+Debes configurarlo con estas variables secretas:
+  WOMPI_INTEGRITY_SECRET = tu secreto prod_integrity_... de Wompi
+  WOMPI_PUBLIC_KEY = pub_prod_...
+  ALLOWED_ORIGIN = https://TU-USUARIO.github.io
+
+Después de desplegarlo, el botón "PAGAR AHORA" se conecta a ese endpoint para
+obtener la firma y abrir el checkout de Wompi.
+
+IMPORTANTE: nunca subas prod_integrity_... ni prv_prod_... a GitHub.
