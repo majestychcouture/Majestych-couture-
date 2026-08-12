@@ -65,7 +65,7 @@ function renderCart(){
  const total=cart.reduce((a,x)=>a+x.price*x.qty,0);
  document.getElementById("cartTotal").textContent="$"+money(total)+" COP";
  const lines=cart.map(x=>`${x.name} — Talla ${x.size} — x${x.qty} — $${money(x.price*x.qty)} COP`);
- document.getElementById("cartWhatsapp").href="https://wa.me/"+WHATSAPP+"?text="+encodeURIComponent("Hola, Majestych Couture. Quiero realizar este pedido:\n\n"+lines.join("\n")+"\n\nTotal: $"+money(total)+" COP");
+ const cartWhatsapp=document.getElementById("cartWhatsapp"); if(cartWhatsapp) cartWhatsapp.href="https://wa.me/"+WHATSAPP+"?text="+encodeURIComponent("Hola, Majestych Couture. Quiero realizar este pedido:\n\n"+lines.join("\n")+"\n\nTotal: $"+money(total)+" COP");
  items.querySelectorAll("[data-m]").forEach(b=>b.onclick=()=>{let i=+b.dataset.m;if(cart[i].qty>1)cart[i].qty--;else cart.splice(i,1);save()});
  items.querySelectorAll("[data-p]").forEach(b=>b.onclick=()=>{cart[+b.dataset.p].qty++;save()});
  items.querySelectorAll("[data-r]").forEach(b=>b.onclick=()=>{cart.splice(+b.dataset.r,1);save()});

@@ -1,0 +1,15 @@
+V10.5.3 — CORRECCIÓN DEL CARRITO
+
+Se corrigió el error que impedía agregar productos al carrito.
+
+Causa:
+La versión anterior eliminó el botón inferior de WhatsApp, pero script.js
+todavía intentaba modificar ese elemento. Eso producía un error de JavaScript
+durante renderCart() y detenía la ejecución antes de completar el flujo.
+
+Corrección:
+- script.js ahora comprueba si ese botón existe antes de usarlo.
+- El botón AGREGAR AL CARRITO vuelve a ejecutar save() y abrir el carrito.
+- Se mantiene un solo FINALIZAR PEDIDO POR WHATSAPP dentro del checkout.
+- Se mantiene PAGO EN LÍNEA dentro del carrito.
+- No se modifican productos, fotos, tallas, precios ni envíos.
