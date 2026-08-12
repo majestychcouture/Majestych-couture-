@@ -1,29 +1,76 @@
-MAJESTYCH COUTURE — V10
-=========================
+MAJESTYCH COUTURE — V10.1
+===========================
 
-Esta versión agrega:
-- Departamento + municipio.
-- Envío automático:
-  Medellín $13.000
-  Bello/Envigado/Sabaneta/La Estrella $15.000
-  Resto de Antioquia $20.000
-  Fuera de Antioquia $22.000
-- Subtotal, envío y total.
-- Pago contra entrega por WhatsApp.
+CAMBIOS
+-------
+1. El botón ya no dice "Wompi". Ahora muestra:
+   "PAGAR AHORA · PSE · NEQUI · BANCOLOMBIA"
+2. El pago online genera una referencia única y solicita al servidor seguro
+   la firma SHA-256 de integridad.
+3. El secreto prod_integrity_... NUNCA se guarda en GitHub.
+4. El total enviado a Wompi es PRODUCTOS + ENVÍO.
 
-PAGO ONLINE WOMPI
------------------
-La documentación actual de Wompi exige una firma de integridad para cada transacción
-y recomienda generarla en servidor, no en el frontend. Por seguridad, esta V10 NO
-incluye ningún secreto de Wompi en GitHub.
+TARIFAS
+-------
+Medellín: $13.000
+Bello / Envigado / Sabaneta / La Estrella: $15.000
+Resto de Antioquia: $20.000
+Fuera de Antioquia: $22.000
 
-El archivo wompi-worker.js es una plantilla para un servidor serverless.
-Debes configurarlo con estas variables secretas:
-  WOMPI_INTEGRITY_SECRET = tu secreto prod_integrity_... de Wompi
-  WOMPI_PUBLIC_KEY = pub_prod_...
-  ALLOWED_ORIGIN = https://TU-USUARIO.github.io
+PARTE SEGURA: CLOUDFLARE WORKER
+--------------------------------
+1. Crea un Cloudflare Worker nuevo.
+2. Copia el contenido de wompi-worker.js al Worker.
+3. Publica el Worker y copia su URL, por ejemplo:
+   https://majestych-wompi-sign.workers.dev
+4. En el Worker crea estos Secrets/Variables:
+   WOMPI_INTEGRITY_SECRET = tu secreto prod_integrity_... de Wompi
+   WOMPI_PUBLIC_KEY = pub_prod_...
+   ALLOWED_ORIGIN = https://TU-USUARIO.github.io
 
-Después de desplegarlo, el botón "PAGAR AHORA" se conecta a ese endpoint para
-obtener la firma y abrir el checkout de Wompi.
+IMPORTANTE:
+- NO pongas WOMPI_INTEGRITY_SECRET en index.html, script.js ni GitHub.
+- NO compartas prod_integrity_... ni prv_prod_....
+- El Worker es el único lugar donde queda el secreto.
 
-IMPORTANTE: nunca subas prod_integrity_... ni prv_prod_... a GitHub.
+PARTE DE GITHUB
+---------------
+En script.js cambia:
+const WOMPI_SIGNING_ENDPOINT="https://TU-WORKER.workers.dev/sign";
+
+por la URL real de tu Worker terminada en /sign.
+
+La llave pública ya está configurada en script.js.
+
+CÓMO FUNCIONA
+-------------
+Cliente:
+Carrito -> datos de envío -> municipio -> cálculo del envío -> total ->
+"PAGAR AHORA · PSE · NEQUI · BANCOLOMBIA"
+
+La página solicita la firma al Worker y luego abre el Web Checkout de Wompi
+con:
+- public-key
+- currency COP
+- amount-in-cents
+- reference única
+- signature:integrity
+- redirect-url
+
+Wompi mostrará los métodos de pago disponibles para el comercio,
+incluyendo PSE, Nequi, Bancolombia y tarjetas según la configuración de la cuenta.
+
+PRUEBA
+------
+Antes de publicar, prueba:
+1. Un producto.
+2. Medellín -> $13.000 de envío.
+3. Total = $74.999 + $13.000 = $87.999.
+4. Selecciona "PAGAR AHORA · PSE · NEQUI · BANCOLOMBIA".
+5. Debe abrir el checkout de Wompi sin el mensaje de "falta firma".
+
+NOTA
+----
+La confirmación definitiva de una venta debe verificarse consultando el estado
+de la transacción / eventos de Wompi. El checkout por sí solo no debe tomarse
+como prueba definitiva de pago aprobado.
