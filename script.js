@@ -95,7 +95,6 @@ renderProducts();renderCart();
 
 /* V10 — ENVÍO AUTOMÁTICO + Wompi preparado */
 const WOMPI_PUBLIC_KEY="pub_prod_1Ey0CFFaJIlSqFMPAXiorvFjOuvYetmP";
-const WOMPI_SIGNING_ENDPOINT="https://TU-WORKER.workers.dev/sign";
 const SHIPPING = {
   medellin:13000, especiales:15000, antioquia:20000, fuera:22000
 };
@@ -158,7 +157,7 @@ updateCheckoutTotals();
 
 (function(){
  const f=document.getElementById("checkoutForm"); if(!f)return;
- f.addEventListener("submit",function(e){
+ f.addEventListener("submit",async function(e){
    e.preventDefault();
    if(!cart.length){alert("Tu carrito está vacío. Agrega un producto.");return;}
    const g=id=>document.getElementById(id).value.trim();
@@ -171,34 +170,10 @@ updateCheckoutTotals();
    const lines=cart.map(x=>"• "+x.name+" — Talla "+(x.size||"—")+" — Cantidad: "+x.qty+" — $"+money(x.price*x.qty)+" COP").join("\n");
    const ref="MJ-"+Date.now()+"-"+Math.floor(Math.random()*1000);
    if(method==="online"){
-     try{
-       if(!WOMPI_SIGNING_ENDPOINT || WOMPI_SIGNING_ENDPOINT.includes("TU-WORKER")){
-         alert("Falta conectar el servidor seguro de Wompi. Configura WOMPI_SIGNING_ENDPOINT en script.js.");
-         return;
-       }
-       const amountInCents = String(Math.round(calc.total * 100));
-       const signResponse = await fetch(WOMPI_SIGNING_ENDPOINT, {
-         method:"POST",
-         headers:{"Content-Type":"application/json"},
-         body:JSON.stringify({reference:ref, amountInCents:amountInCents})
-       });
-       if(!signResponse.ok) throw new Error("No fue posible generar la firma de seguridad.");
-       const signed = await signResponse.json();
-       if(!signed.signature) throw new Error("La firma de Wompi no llegó correctamente.");
-
-       const params = new URLSearchParams({
-         "public-key": WOMPI_PUBLIC_KEY,
-         "currency":"COP",
-         "amount-in-cents":amountInCents,
-         "reference":ref,
-         "signature:integrity":signed.signature,
-         "redirect-url":window.location.href.split("#")[0]
-       });
-       window.location.href = "https://checkout.wompi.co/p/?" + params.toString();
-     }catch(err){
-       console.error(err);
-       alert("No pudimos preparar el pago en línea. Revisa la conexión de Wompi e inténtalo nuevamente.");
-     }
+     // Wompi requires an integrity signature generated server-side.
+     // This V10 opens the official Wompi checkout only when a signed checkout URL
+     // is supplied by the secure backend; the public key is kept here for that integration.
+     alert("El pago en línea de Wompi ya está preparado, pero falta conectar el servidor seguro que genera la firma de integridad. No se expone ese secreto en GitHub.");
      return;
    }
    const msg="Hola, Majestych Couture. Quiero realizar este pedido:\n\n"+lines+
