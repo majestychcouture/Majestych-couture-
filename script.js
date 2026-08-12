@@ -221,4 +221,3 @@ updateShipping();
     wireOnlinePayment();
   }
 })();
-\n(function(){function f(){var a=document.getElementById("premiumPayOnlineBtn"),b=document.getElementById("payOnlineBtn");if(a)a.onclick=function(){if(b)b.click();else alert("El pago en línea aún no está conectado.");}}if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",f);else f();})();\n
