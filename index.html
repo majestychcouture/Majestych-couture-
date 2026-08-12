@@ -88,6 +88,69 @@
 }
 </style>
 
+
+<style>
+/* V10.5.2 — un solo WhatsApp + un solo pago online dentro del carrito */
+#paymentOptions.checkout-payments{
+  display:block !important;
+  color:#aaa39a;
+  font-size:12px;
+  line-height:1.5;
+  margin:10px 0;
+}
+#paymentOptions .payment-online-card{
+  display:grid;
+  grid-template-columns:42px 1fr;
+  gap:10px 12px;
+  align-items:center;
+  padding:14px;
+  border:1px solid rgba(198,169,103,.35);
+  border-radius:12px;
+  background:#10100f;
+}
+#paymentOptions .payment-online-icon{
+  grid-row:1 / span 2;
+  width:42px;height:42px;
+  display:grid;place-items:center;
+  border:1px solid rgba(198,169,103,.55);
+  border-radius:9px;
+  color:#c6a967;
+}
+#paymentOptions .payment-online-copy strong,
+#paymentOptions .payment-cod strong{
+  display:block;
+  color:#e0d4ba;
+  font-weight:700;
+  letter-spacing:.06em;
+}
+#paymentOptions .payment-online-copy span,
+#paymentOptions .payment-cod span{
+  display:block;
+  margin-top:3px;
+  font-size:11px;
+  opacity:.72;
+}
+#paymentOptions #payOnlineBtn{
+  grid-column:1 / -1;
+  width:100%;
+  min-height:48px;
+  padding:12px 16px;
+  border:1px solid #c6a967;
+  border-radius:10px;
+  background:#c6a967;
+  color:#080807;
+  font-weight:800;
+  letter-spacing:.05em;
+  cursor:pointer;
+}
+#paymentOptions .payment-cod{
+  margin-top:10px;
+  padding:13px 14px;
+  border:1px solid rgba(255,255,255,.10);
+  border-radius:10px;
+}
+</style>
+
 </head>
 <body>
 
@@ -170,7 +233,7 @@
 <button type="submit" class="checkout-submit">FINALIZAR PEDIDO POR WHATSAPP</button>
 </form></section>
 <div class="cart-footer"><div class="cart-total"><span>TOTAL</span><strong id="cartTotal">$0 COP</strong></div>
-  <a id="cartWhatsapp" class="gold-button cart-whatsapp" target="_blank" rel="noopener">COMPRAR POR WHATSAPP</a></div>
+  </div>
 </aside>
 <div class="product-modal" id="productModal" aria-hidden="true">
   <div class="modal-backdrop" id="modalBackdrop"></div>

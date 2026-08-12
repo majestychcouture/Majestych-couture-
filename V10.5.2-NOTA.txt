@@ -1,0 +1,14 @@
+V10.5.2
+
+Cambios:
+1. Se eliminó el botón COMPRAR POR WHATSAPP del pie del carrito.
+2. Se conserva un único botón FINALIZAR PEDIDO POR WHATSAPP dentro del formulario.
+3. Se dejó un único bloque PAGO EN LÍNEA dentro del carrito:
+   Nequi · Bancolombia · PSE · Tarjetas
+   PAGAR AHORA
+4. No se modificó script.js.
+5. No se modificaron productos, fotos, tallas, edición del carrito, WhatsApp
+   del formulario ni cálculo de envío.
+
+Nota: el botón PAGAR AHORA conserva el flujo que tenía la V10.4. La firma
+segura de Wompi todavía debe conectarse para que el cobro real se procese.
