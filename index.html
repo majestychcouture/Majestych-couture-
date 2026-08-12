@@ -12,7 +12,13 @@
 .checkout-pay-btn{width:100%;padding:14px 16px;border:0;border-radius:10px;background:#111;color:#fff;font-weight:700;cursor:pointer}
 .payment-help{margin:8px 0 0;font-size:12px;opacity:.7;text-align:center}
 </style>
-</head>
+<style>
+.premium-payment-card{display:flex;align-items:center;gap:12px;margin:14px 0;padding:14px 16px;border:1px solid rgba(198,169,103,.28);border-radius:12px;background:rgba(255,255,255,.025)}
+.premium-payment-icon{width:38px;height:38px;display:grid;place-items:center;border:1px solid rgba(198,169,103,.45);border-radius:9px;color:#c6a967;font-size:18px;flex:0 0 38px}
+.premium-payment-copy{min-width:0;flex:1}.premium-payment-title{font-size:13px;font-weight:800;letter-spacing:.08em}.premium-payment-subtitle{margin-top:3px;font-size:11px;opacity:.68}
+.premium-payment-button{border:1px solid #c6a967;background:#c6a967;color:#080807;border-radius:8px;padding:10px 13px;font-weight:800;font-size:11px;cursor:pointer;white-space:nowrap}
+@media(max-width:520px){.premium-payment-card{flex-wrap:wrap}.premium-payment-button{width:100%}}
+</style></head>
 <body>
 
 <header class="header">
@@ -144,5 +150,10 @@
   <p class="payment-help">Pago en línea seguro. Los métodos disponibles se mostrarán al continuar.</p>
 </section>
 
-</body>
+<section class="premium-payment-card" aria-label="Métodos de pago">
+<div class="premium-payment-icon">▣</div>
+<div class="premium-payment-copy"><div class="premium-payment-title">PAGO EN LÍNEA</div>
+<div class="premium-payment-subtitle">Nequi · Bancolombia · PSE · Tarjetas</div></div>
+<button type="button" id="premiumPayOnlineBtn" class="premium-payment-button">PAGAR AHORA</button>
+</section></body>
 </html>
