@@ -1,0 +1,18 @@
+V10.6 — CONEXIÓN REAL CON WOMPI
+
+Base: V10.5.3-CARRITO-ARREGLADO.
+
+Cambios:
+- Se añadió el Widget Checkout oficial de Wompi.
+- El botón PAGAR AHORA calcula subtotal + envío.
+- Genera una referencia única para cada intento de pago.
+- Llama por POST al Worker seguro:
+  https://majestych.bedoyaalvarezandresfelipe.workers.dev/
+- El Worker genera la firma usando el secreto WOMPI_INTEGRITY_SECRET guardado en Cloudflare.
+- La página nunca contiene el secreto.
+- Envía al checkout los datos del cliente y dirección.
+- No se modificaron productos, fotos, tallas, carrito, editar carrito ni WhatsApp.
+
+IMPORTANTE:
+La llave pública usada es la de producción que ya estaba en V10.5.3.
+Antes de cobrar en producción, conviene hacer una prueba controlada y verificar el resultado de la transacción en Wompi.

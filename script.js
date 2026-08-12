@@ -176,48 +176,138 @@ updateShipping();
   }
 })();
 
-/* V10.4 — Wompi: preparado sin tocar el carrito */
+/* V10.6 — Wompi conectado al Worker seguro */
 (function(){
   const WOMPI_PUBLIC_KEY = "pub_prod_1Ey0CFFaJIlSqFMPAXiorvFjOuvYetmP";
-  const WOMPI_SIGNING_ENDPOINT = ""; // Se completa después con tu Worker seguro.
+  const WOMPI_SIGNING_ENDPOINT = "https://majestych.bedoyaalvarezandresfelipe.workers.dev/";
 
-  function getOrderTotal(){
-    // Try common total elements used by the existing stable version.
-    const candidates = [
-      document.querySelector("#cartTotal"),
-      document.querySelector(".cart-total"),
-      document.querySelector("[data-cart-total]")
-    ];
-    for(const el of candidates){
-      if(el){
-        const n = parseInt((el.textContent||"").replace(/\D/g,""),10);
-        if(Number.isFinite(n) && n>0) return n;
-      }
-    }
-    return 0;
+  function shippingFor(department, municipality){
+    const d=(department||"").trim().toLowerCase();
+    const c=(municipality||"").trim().toLowerCase();
+    if(d!=="antioquia") return 22000;
+    if(c==="medellín" || c==="medellin") return 13000;
+    if(["bello","envigado","sabaneta","la estrella"].includes(c)) return 15000;
+    return 20000;
   }
 
-  function wireOnlinePayment(){
-    const btn = document.getElementById("payOnlineBtn");
-    if(!btn) return;
-    btn.addEventListener("click", function(){
-      const total = getOrderTotal();
-      if(!total){
-        alert("Primero agrega un producto al carrito y verifica el total.");
-        return;
+  function cartSubtotal(){
+    return cart.reduce((s,x)=>s+x.price*x.qty,0);
+  }
+
+  function getCustomerData(){
+    const g=id=>{const el=document.getElementById(id); return el ? el.value.trim() : "";};
+    return {
+      name:g("customerName"),
+      ced:g("customerId"),
+      phone:g("customerPhone"),
+      department:g("customerDepartment"),
+      municipality:g("customerCity"),
+      address:g("customerAddress")
+    };
+  }
+
+  function makeReference(){
+    const now=Date.now().toString(36).toUpperCase();
+    const rnd=Math.random().toString(36).slice(2,8).toUpperCase();
+    return "MJC-"+now+"-"+rnd;
+  }
+
+  async function getIntegritySignature(reference, amountInCents){
+    const response=await fetch(WOMPI_SIGNING_ENDPOINT,{
+      method:"POST",
+      headers:{"Content-Type":"application/json"},
+      body:JSON.stringify({reference,amountInCents})
+    });
+    let data={};
+    try{data=await response.json();}catch(e){}
+    if(!response.ok || !data.signature){
+      throw new Error(data.error || "No se pudo generar la firma de Wompi.");
+    }
+    return data.signature;
+  }
+
+  function openWompi(reference, amountInCents, signature, customer){
+    if(typeof WidgetCheckout==="undefined"){
+      throw new Error("No se pudo cargar el checkout de Wompi. Recarga la página e inténtalo nuevamente.");
+    }
+
+    const checkout=new WidgetCheckout({
+      currency:"COP",
+      amountInCents:amountInCents,
+      reference:reference,
+      publicKey:WOMPI_PUBLIC_KEY,
+      signature:{integrity:signature},
+      customerData:{
+        fullName:customer.name,
+        phoneNumber:customer.phone,
+        phoneNumberPrefix:"+57",
+        legalId:customer.ced,
+        legalIdType:"CC"
+      },
+      shippingAddress:{
+        addressLine1:customer.address,
+        city:customer.municipality,
+        phoneNumber:customer.phone,
+        region:customer.department,
+        country:"CO",
+        name:customer.name
       }
-      if(!WOMPI_SIGNING_ENDPOINT){
-        alert("El pago en línea está preparado, pero falta conectar la firma segura de Wompi. Tu opción de pago contra entrega sigue funcionando.");
-        return;
-      }
-      // The real checkout is intentionally enabled only after the secure signer exists.
-      console.log("Wompi public key:", WOMPI_PUBLIC_KEY);
+    });
+
+    checkout.open(function(result){
+      console.log("Resultado Wompi:", result);
     });
   }
 
+  async function startOnlinePayment(){
+    if(!cart.length){
+      alert("Tu carrito está vacío. Agrega un producto antes de pagar.");
+      return;
+    }
+
+    const customer=getCustomerData();
+    if(!customer.name||!customer.ced||!customer.phone||!customer.department||!customer.municipality||!customer.address){
+      alert("Completa primero todos los datos de envío para continuar con el pago.");
+      return;
+    }
+
+    const subtotal=cartSubtotal();
+    const shipping=shippingFor(customer.department,customer.municipality);
+    const total=subtotal+shipping;
+    const amountInCents=total*100;
+    const reference=makeReference();
+
+    const btn=document.getElementById("payOnlineBtn");
+    const original=btn ? btn.textContent : "PAGAR AHORA";
+    if(btn){
+      btn.disabled=true;
+      btn.textContent="CONECTANDO CON WOMPI...";
+    }
+
+    try{
+      const signature=await getIntegritySignature(reference,amountInCents);
+      openWompi(reference,amountInCents,signature,customer);
+    }catch(error){
+      console.error("Wompi:",error);
+      alert("No se pudo iniciar el pago en línea. Verifica la conexión con Wompi e inténtalo nuevamente.");
+    }finally{
+      if(btn){
+        btn.disabled=false;
+        btn.textContent=original;
+      }
+    }
+  }
+
+  function wireOnlinePayment(){
+    const btn=document.getElementById("payOnlineBtn");
+    if(!btn)return;
+    btn.addEventListener("click",startOnlinePayment);
+  }
+
   if(document.readyState==="loading"){
-    document.addEventListener("DOMContentLoaded", wireOnlinePayment);
-  } else {
+    document.addEventListener("DOMContentLoaded",wireOnlinePayment);
+  }else{
     wireOnlinePayment();
   }
 })();
+
