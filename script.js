@@ -92,101 +92,43 @@ document.getElementById("mainWhatsapp").href=wa({name:"la colección",price:0});
 document.getElementById("floatWhatsapp").href=wa({name:"la colección",price:0});
 renderProducts();renderCart();
 
-
-/* V10 — ENVÍO AUTOMÁTICO + Wompi preparado */
-const WOMPI_PUBLIC_KEY="pub_prod_1Ey0CFFaJIlSqFMPAXiorvFjOuvYetmP";
-const SHIPPING = {
-  medellin:13000, especiales:15000, antioquia:20000, fuera:22000
-};
-
-function getShipping(){
-  const dep=document.getElementById("customerDepartment")?.value || "";
-  const cityA=document.getElementById("customerCityAntioquia")?.value || "";
-  const city=document.getElementById("customerCity")?.value.trim() || "";
-  if(!dep) return null;
-  if(dep!=="Antioquia") return {value:SHIPPING.fuera,label:"Fuera de Antioquia"};
-  const c=(cityA || city).toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"");
-  if(c==="medellin") return {value:SHIPPING.medellin,label:"Medellín"};
-  if(["bello","envigado","sabaneta","la estrella"].includes(c)) return {value:SHIPPING.especiales,label:cityA};
-  if(cityA==="Otro municipio de Antioquia" || city) return {value:SHIPPING.antioquia,label:"Otro municipio de Antioquia"};
-  return null;
-}
-function updateCheckoutTotals(){
-  const productTotal=cart.reduce((s,x)=>s+x.price*x.qty,0);
-  const ship=getShipping();
-  const cost=document.getElementById("shippingCost");
-  const total=document.getElementById("checkoutTotal");
-  if(!ship){
-    cost.textContent="Selecciona tu destino";
-    total.textContent="$"+money(productTotal)+" COP";
-    return {productTotal,shipping:0,total:productTotal};
-  }
-  cost.textContent="$"+money(ship.value)+" COP";
-  const t=productTotal+ship.value;
-  total.textContent="$"+money(t)+" COP";
-  return {productTotal,shipping:ship.value,total:t,shippingLabel:ship.label};
-}
-function bindShipping(){
-  const dep=document.getElementById("customerDepartment");
-  const cityA=document.getElementById("customerCityAntioquia");
-  const city=document.getElementById("customerCity");
-  if(!dep)return;
-  dep.addEventListener("change",()=>{
-    if(dep.value==="Antioquia"){
-      cityA.style.display="block"; cityA.required=true;
-      city.style.display="none"; city.required=false; city.value="";
-    }else{
-      cityA.style.display="none"; cityA.required=false; cityA.value="";
-      city.style.display="block"; city.required=true;
-    }
-    updateCheckoutTotals();
-  });
-  cityA.addEventListener("change",()=>{
-    if(cityA.value==="Otro municipio de Antioquia"){
-      city.style.display="block"; city.required=true; city.value="";
-      city.placeholder="Escribe tu municipio";
-    }else{
-      city.style.display="none"; city.required=false; city.value=cityA.value;
-    }
-    updateCheckoutTotals();
-  });
-  city.addEventListener("input",updateCheckoutTotals);
-}
-bindShipping();
-updateCheckoutTotals();
-
+/* V10.3 CHECKOUT ESTABLE */
 (function(){
- const f=document.getElementById("checkoutForm"); if(!f)return;
- f.addEventListener("submit",async function(e){
-   e.preventDefault();
-   if(!cart.length){alert("Tu carrito está vacío. Agrega un producto.");return;}
-   const g=id=>document.getElementById(id).value.trim();
-   const name=g("customerName"), ced=g("customerId"), phone=g("customerPhone"), addr=g("customerAddress");
-   const dep=g("customerDepartment"), city=g("customerCity") || g("customerCityAntioquia");
-   if(!name||!ced||!phone||!dep||!city||!addr){alert("Completa todos los datos de envío.");return;}
-   const calc=updateCheckoutTotals();
-   if(!getShipping()){alert("Selecciona tu municipio para calcular el envío.");return;}
-   const method=document.querySelector('input[name="paymentMethod"]:checked')?.value||"cod";
-   const lines=cart.map(x=>"• "+x.name+" — Talla "+(x.size||"—")+" — Cantidad: "+x.qty+" — $"+money(x.price*x.qty)+" COP").join("\n");
-   const ref="MJ-"+Date.now()+"-"+Math.floor(Math.random()*1000);
-   if(method==="online"){
-     // Wompi requires an integrity signature generated server-side.
-     // This V10 opens the official Wompi checkout only when a signed checkout URL
-     // is supplied by the secure backend; the public key is kept here for that integration.
-     alert("El pago en línea de Wompi ya está preparado, pero falta conectar el servidor seguro que genera la firma de integridad. No se expone ese secreto en GitHub.");
-     return;
-   }
-   const msg="Hola, Majestych Couture. Quiero realizar este pedido:\n\n"+lines+
-     "\n\nSUBTOTAL: $"+money(calc.productTotal)+" COP"+
-     "\nENVÍO ("+calc.shippingLabel+"): $"+money(calc.shipping)+" COP"+
-     "\nTOTAL: $"+money(calc.total)+" COP"+
-     "\n\nDATOS DE ENVÍO\nNombre: "+name+"\nCédula: "+ced+"\nCelular: "+phone+
-     "\nDepartamento: "+dep+"\nCiudad / municipio: "+city+"\nDirección: "+addr+
-     "\n\nForma de pago: CONTRA ENTREGA\nReferencia: "+ref;
-   window.open("https://wa.me/"+WHATSAPP+"?text="+encodeURIComponent(msg),"_blank");
- });
-})();
+const f=document.getElementById("checkoutForm"); if(!f)return;
+const dept=document.getElementById("customerDepartment");
+const city=document.getElementById("customerCity");
+const shippingSummary=document.getElementById("shippingSummary");
 
+function shippingFor(department, municipality){
+ const d=(department||"").trim().toLowerCase();
+ const c=(municipality||"").trim().toLowerCase();
+ if(d!=="antioquia") return 22000;
+ if(c==="medellín" || c==="medellin") return 13000;
+ if(["bello","envigado","sabaneta","la estrella"].includes(c)) return 15000;
+ return 20000;
+}
+function cartSubtotal(){ return cart.reduce((s,x)=>s+x.price*x.qty,0); }
+function updateShipping(){
+ const dep=dept.value, mun=city.value;
+ if(!dep || !mun){shippingSummary.innerHTML='Envío: <strong>Selecciona tu departamento y municipio</strong>';return;}
+ const ship=shippingFor(dep,mun), sub=cartSubtotal(), total=sub+ship;
+ shippingSummary.innerHTML='Subtotal: <strong>$'+money(sub)+' COP</strong><br>Envío: <strong>$'+money(ship)+' COP</strong><br>Total: <strong>$'+money(total)+' COP</strong>';
+}
+dept.addEventListener("change",updateShipping);
+city.addEventListener("input",updateShipping);
+f.addEventListener("submit",function(e){
+ e.preventDefault();
+ if(!cart.length){alert("Tu carrito está vacío. Agrega un producto.");return;}
+ const g=id=>document.getElementById(id).value.trim();
+ const name=g("customerName"), ced=g("customerId"), phone=g("customerPhone"), department=g("customerDepartment"), municipality=g("customerCity"), addr=g("customerAddress");
+ if(!name||!ced||!phone||!department||!municipality||!addr){alert("Completa todos los datos de envío.");return;}
+ const sub=cartSubtotal(), ship=shippingFor(department,municipality), total=sub+ship;
+ const items=cart.map(x=>"• "+x.name+" — Talla "+(x.size||"—")+" — Cantidad: "+x.qty+" — $"+money(x.price*x.qty)+" COP").join("\n");
+ const msg="Hola, Majestych Couture. Quiero realizar este pedido:\n\n"+items+"\n\nSUBTOTAL: $"+money(sub)+" COP\nENVÍO: $"+money(ship)+" COP\nTOTAL: $"+money(total)+" COP\n\nDATOS DE ENVÍO\nNombre: "+name+"\nCédula: "+ced+"\nCelular: "+phone+"\nDepartamento: "+department+"\nCiudad / municipio: "+municipality+"\nDirección: "+addr+"\n\nPago contra entrega.";
+ window.open("https://wa.me/"+WHATSAPP+"?text="+encodeURIComponent(msg),"_blank");
+});
+updateShipping();
+})();
 
 /* V9.2 — EDITAR CARRITO FUNCIONAL */
 (function(){

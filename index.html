@@ -61,47 +61,19 @@
 <aside class="cart-drawer" id="cartDrawer">
   <div class="cart-header"><div><p class="eyebrow">MAJESTYCH COUTURE</p><h2>Tu carrito</h2></div><button type="button" id="cartClose">×</button></div>
   <div id="cartItems" class="cart-items"></div>
-  <section class="checkout-box">
-  <button type="button" class="back-to-cart" id="backToCart">← EDITAR MI CARRITO</button>
-  <div class="checkout-title">DATOS DE ENVÍO</div>
-  <p class="checkout-note">🚚 Envíos a todo el país · El envío se calcula automáticamente</p>
-  <form id="checkoutForm">
-    <input id="customerName" type="text" placeholder="Nombre completo" required>
-    <input id="customerId" type="text" placeholder="Cédula" required>
-    <input id="customerPhone" type="tel" placeholder="Celular" required>
-    <select id="customerDepartment" required>
-      <option value="">Selecciona tu departamento</option>
-      <option>Amazonas</option><option>Antioquia</option><option>Arauca</option><option>Atlántico</option>
-      <option>Bolívar</option><option>Boyacá</option><option>Caldas</option><option>Caquetá</option>
-      <option>Casanare</option><option>Cauca</option><option>Cesar</option><option>Chocó</option>
-      <option>Córdoba</option><option>Cundinamarca</option><option>Guainía</option><option>Guaviare</option>
-      <option>Huila</option><option>La Guajira</option><option>Magdalena</option><option>Meta</option>
-      <option>Nariño</option><option>Norte de Santander</option><option>Putumayo</option><option>Quindío</option>
-      <option>Risaralda</option><option>San Andrés y Providencia</option><option>Santander</option>
-      <option>Sucre</option><option>Tolima</option><option>Valle del Cauca</option><option>Vaupés</option><option>Vichada</option>
-    </select>
-    <select id="customerCityAntioquia" style="display:none">
-      <option value="">Selecciona tu municipio</option>
-      <option>Medellín</option><option>Bello</option><option>Envigado</option><option>Sabaneta</option><option>La Estrella</option>
-      <option>Otro municipio de Antioquia</option>
-    </select>
-    <input id="customerCity" type="text" placeholder="Ciudad / municipio" required>
-    <input id="customerAddress" type="text" placeholder="Dirección de entrega" required>
-    <div class="shipping-summary" id="shippingSummary">
-      <span>Envío</span><strong id="shippingCost">Selecciona tu destino</strong>
-    </div>
-    <div class="checkout-payments">
-      <div class="payment-choice-title">FORMA DE PAGO</div>
-      <label><input type="radio" name="paymentMethod" value="cod" checked> 🟡 Pago contra entrega</label>
-      <label><input type="radio" name="paymentMethod" value="online"> 🟢 Pagar ahora · PSE · Nequi · Bancolombia</label>
-      <small>PSE · Nequi · Bancolombia · tarjetas y otros medios disponibles en Wompi.</small>
-    </div>
-    <div class="checkout-grand-total">
-      <span>TOTAL CON ENVÍO</span><strong id="checkoutTotal">$0 COP</strong>
-    </div>
-    <button type="submit" class="checkout-submit" id="checkoutSubmit">FINALIZAR PEDIDO</button>
-  </form>
-</section>
+  <section class="checkout-box"><button type="button" class="back-to-cart" id="backToCart">← EDITAR MI CARRITO</button><div class="checkout-title">DATOS DE ENVÍO</div>
+<p class="checkout-note">🚚 Envíos a todo el país · Pago contra entrega</p>
+<form id="checkoutForm">
+<input id="customerName" type="text" placeholder="Nombre completo" required>
+<input id="customerId" type="text" placeholder="Cédula" required>
+<input id="customerPhone" type="tel" placeholder="Celular" required>
+<select id="customerDepartment" required><option value="">Selecciona departamento</option><option value="Antioquia">Antioquia</option><option value="Amazonas">Amazonas</option><option value="Arauca">Arauca</option><option value="Atlántico">Atlántico</option><option value="Bolívar">Bolívar</option><option value="Boyacá">Boyacá</option><option value="Caldas">Caldas</option><option value="Caquetá">Caquetá</option><option value="Casanare">Casanare</option><option value="Cauca">Cauca</option><option value="Cesar">Cesar</option><option value="Chocó">Chocó</option><option value="Córdoba">Córdoba</option><option value="Cundinamarca">Cundinamarca</option><option value="Guainía">Guainía</option><option value="Guaviare">Guaviare</option><option value="Huila">Huila</option><option value="La Guajira">La Guajira</option><option value="Magdalena">Magdalena</option><option value="Meta">Meta</option><option value="Nariño">Nariño</option><option value="Norte de Santander">Norte de Santander</option><option value="Putumayo">Putumayo</option><option value="Quindío">Quindío</option><option value="Risaralda">Risaralda</option><option value="San Andrés y Providencia">San Andrés y Providencia</option><option value="Santander">Santander</option><option value="Sucre">Sucre</option><option value="Tolima">Tolima</option><option value="Valle del Cauca">Valle del Cauca</option><option value="Vaupés">Vaupés</option><option value="Vichada">Vichada</option></select>
+<input id="customerCity" type="text" placeholder="Ciudad / municipio" required>
+<input id="customerAddress" type="text" placeholder="Dirección de entrega" required>
+<div id="shippingSummary" class="checkout-payments">Envío: <strong>Selecciona tu departamento y municipio</strong></div>
+<div id="paymentOptions" class="checkout-payments">Forma de pago: <strong>Contra entrega</strong><br><span>Pago en línea (PSE · Nequi · Bancolombia) se activará al conectar la cuenta de pagos.</span></div>
+<button type="submit" class="checkout-submit">FINALIZAR PEDIDO POR WHATSAPP</button>
+</form></section>
 <div class="cart-footer"><div class="cart-total"><span>TOTAL</span><strong id="cartTotal">$0 COP</strong></div>
   <a id="cartWhatsapp" class="gold-button cart-whatsapp" target="_blank" rel="noopener">COMPRAR POR WHATSAPP</a></div>
 </aside>
