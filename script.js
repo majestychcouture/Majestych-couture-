@@ -325,15 +325,15 @@ updateShipping();
   if(!modal) return;
 
   const data={
-    elegancia:{title:"ELEGANCIA",icon:"♕",text:"Una estética cuidada en cada detalle. Diseños pensados para proyectar presencia, personalidad y confianza sin perder la esencia de Majestych Couture.",target:"#catalogo"},
-    exclusividad:{title:"EXCLUSIVIDAD",icon:"♢",text:"Piezas seleccionadas para quienes buscan diferenciarse. Una colección con identidad propia y una propuesta que no pasa desapercibida.",target:"#catalogo"},
-    calidad:{title:"CALIDAD",icon:"♧",text:"Cuidamos la elección visual y la presentación de cada producto para que la experiencia de compra esté a la altura de la marca.",target:"#catalogo"},
-    global:{title:"ESTILO GLOBAL",icon:"◎",text:"Inspiración deportiva y urbana con una estética contemporánea. Majestych Couture une actitud, moda y una visión que trasciende fronteras.",target:"#galeria"}
+    elegancia:{title:"ELEGANCIA",icon:'<svg viewBox="0 0 64 64"><path d="M12 24h40L32 56 12 24Z"/><path d="M12 24 22 10h20l10 14M22 10l10 46M42 10 32 56"/></svg>',text:"Una estética cuidada en cada detalle. Diseños pensados para proyectar presencia, personalidad y confianza sin perder la esencia de Majestych Couture.",target:"#catalogo"},
+    exclusividad:{title:"EXCLUSIVIDAD",icon:'<svg viewBox="0 0 64 64"><path d="M32 8 52 24 32 56 12 24 32 8Z"/><path d="M12 24h40M22 24l10 32 10-32M22 24l10-16 10 16"/></svg>',text:"Piezas seleccionadas para quienes buscan diferenciarse. Una colección con identidad propia y una propuesta que no pasa desapercibida.",target:"#catalogo"},
+    calidad:{title:"CALIDAD",icon:'<svg viewBox="0 0 64 64"><path d="M19 9c0 10 4 15 13 19 9-4 13-9 13-19"/><path d="M32 28v14M18 42h28M12 52h40"/><path d="M18 42c-4 0-7 3-7 7v3M46 42c4 0 7 3 7 7v3"/></svg>',text:"Cuidamos la elección visual y la presentación de cada producto para que la experiencia de compra esté a la altura de la marca.",target:"#catalogo"},
+    global:{title:"ESTILO GLOBAL",icon:'<svg viewBox="0 0 64 64"><circle cx="32" cy="32" r="23"/><path d="M9 32h46M32 9c7 7 10 15 10 23s-3 16-10 23M32 9c-7 7-10 15-10 23s3 16 10 23M13 19h38M13 45h38"/></svg>',text:"Inspiración deportiva y urbana con una estética contemporánea. Majestych Couture une actitud, moda y una visión que trasciende fronteras.",target:"#galeria"}
   };
 
   function openValue(key){
     const item=data[key]||data.elegancia;
-    title.textContent=item.title; icon.textContent=item.icon; text.textContent=item.text; action.href=item.target;
+    title.textContent=item.title; icon.innerHTML=item.icon; text.textContent=item.text; action.href=item.target;
     modal.classList.add("open"); modal.setAttribute("aria-hidden","false"); document.body.classList.add("modal-open");
   }
   function closeValue(){
