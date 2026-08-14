@@ -3,260 +3,140 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#080808">
+<meta name="theme-color" content="#050505">
+<meta name="description" content="Majestych Couture — elegancia, exclusividad y estilo.">
 <title>MAJESTYCH COUTURE</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
-
-<style>
-.online-payment-option{margin:14px 0;padding:14px;border:1px solid rgba(198,169,103,.25);border-radius:12px}
-.checkout-pay-btn{width:100%;padding:14px 16px;border:0;border-radius:10px;background:#111;color:#fff;font-weight:700;cursor:pointer}
-.payment-help{margin:8px 0 0;font-size:12px;opacity:.7;text-align:center}
-</style>
-
-<style>
-/* V10.5: estilo premium del único botón de pago, sin tocar JavaScript */
-#payOnlineBtn.checkout-pay-btn{
-  width:100%;
-  min-height:54px;
-  padding:14px 18px;
-  border:1px solid rgba(198,169,103,.65);
-  border-radius:12px;
-  background:linear-gradient(180deg,#d2b66f,#c6a967);
-  color:#080808;
-  font-weight:800;
-  letter-spacing:.04em;
-  cursor:pointer;
-  box-shadow:0 8px 22px rgba(0,0,0,.18);
-}
-#payOnlineBtn.checkout-pay-btn:hover{filter:brightness(1.04)}
-#paymentOptions{
-  line-height:1.6;
-}
-</style>
-
-
-<style>
-/* V10.5.1 — pago visible y fijo dentro del carrito */
-.payment-online-card{
-  display:grid;
-  grid-template-columns:42px 1fr;
-  gap:10px 12px;
-  align-items:center;
-  padding:14px;
-  margin:10px 0;
-  border:1px solid rgba(198,169,103,.35);
-  border-radius:12px;
-  background:rgba(255,255,255,.02);
-}
-.payment-online-icon{
-  grid-row:1 / span 2;
-  width:42px;height:42px;
-  display:grid;place-items:center;
-  border:1px solid rgba(198,169,103,.55);
-  border-radius:9px;
-  color:#c6a967;
-}
-.payment-online-copy strong,.payment-cod strong{
-  display:block;
-  font-size:12px;
-  letter-spacing:.07em;
-}
-.payment-online-copy span,.payment-cod span{
-  display:block;
-  margin-top:3px;
-  font-size:11px;
-  opacity:.68;
-}
-.payment-online-card .checkout-pay-btn{
-  grid-column:1 / -1;
-  width:100%;
-  min-height:48px;
-  padding:12px 16px;
-  border:1px solid rgba(198,169,103,.7);
-  border-radius:10px;
-  background:linear-gradient(180deg,#d2b66f,#c6a967);
-  color:#080808;
-  font-weight:800;
-  letter-spacing:.04em;
-  cursor:pointer;
-}
-.payment-cod{
-  margin-top:10px;
-  padding:13px 14px;
-  border:1px solid rgba(255,255,255,.10);
-  border-radius:10px;
-}
-</style>
-
-
-<style>
-/* V10.5.2 — un solo WhatsApp + un solo pago online dentro del carrito */
-#paymentOptions.checkout-payments{
-  display:block !important;
-  color:#aaa39a;
-  font-size:12px;
-  line-height:1.5;
-  margin:10px 0;
-}
-#paymentOptions .payment-online-card{
-  display:grid;
-  grid-template-columns:42px 1fr;
-  gap:10px 12px;
-  align-items:center;
-  padding:14px;
-  border:1px solid rgba(198,169,103,.35);
-  border-radius:12px;
-  background:#10100f;
-}
-#paymentOptions .payment-online-icon{
-  grid-row:1 / span 2;
-  width:42px;height:42px;
-  display:grid;place-items:center;
-  border:1px solid rgba(198,169,103,.55);
-  border-radius:9px;
-  color:#c6a967;
-}
-#paymentOptions .payment-online-copy strong,
-#paymentOptions .payment-cod strong{
-  display:block;
-  color:#e0d4ba;
-  font-weight:700;
-  letter-spacing:.06em;
-}
-#paymentOptions .payment-online-copy span,
-#paymentOptions .payment-cod span{
-  display:block;
-  margin-top:3px;
-  font-size:11px;
-  opacity:.72;
-}
-#paymentOptions #payOnlineBtn{
-  grid-column:1 / -1;
-  width:100%;
-  min-height:48px;
-  padding:12px 16px;
-  border:1px solid #c6a967;
-  border-radius:10px;
-  background:#c6a967;
-  color:#080807;
-  font-weight:800;
-  letter-spacing:.05em;
-  cursor:pointer;
-}
-#paymentOptions .payment-cod{
-  margin-top:10px;
-  padding:13px 14px;
-  border:1px solid rgba(255,255,255,.10);
-  border-radius:10px;
-}
-</style>
-
 <script src="https://checkout.wompi.co/widget.js"></script>
 </head>
 <body>
 
-<header class="header">
-  <a class="brand-lockup" href="#inicio" aria-label="Majestych Couture">
-    <span class="brand-monogram"><span class="crown">♛</span><b>M</b><i>J</i><b>T</b><i>C</i></span>
-    <span class="brand-name"><strong>MAJESTYCH</strong><small>COUTURE</small></span>
+<header class="site-header">
+  <a class="header-logo" href="#inicio" aria-label="Majestych Couture">
+    <span class="mjtc-mark">MJTC</span>
   </a>
-  <nav>
-    <a href="#inicio">INICIO</a>
+  <nav class="main-nav" aria-label="Navegación principal">
+    <a class="active" href="#inicio">INICIO</a>
     <a href="#catalogo">CATÁLOGO</a>
     <a href="#galeria">GALERÍA</a>
     <a href="#nosotros">SOBRE NOSOTROS</a>
     <a href="#contacto">CONTACTO</a>
   </nav>
   <div class="header-actions">
-    <button class="header-icon" type="button" aria-label="Buscar">⌕</button>
-    <button class="header-icon" type="button" aria-label="Favoritos">♡</button>
-    <button type="button" class="cart-button" id="cartButton" aria-label="Carrito">♧ <span id="cartCount">0</span></button>
+    <button type="button" class="icon-button" aria-label="Buscar" onclick="document.getElementById('catalogo').scrollIntoView({behavior:'smooth'})">⌕</button>
+    <button type="button" class="icon-button" aria-label="Favoritos">♡</button>
+    <button type="button" class="cart-button" id="cartButton" aria-label="Abrir carrito">♧<span id="cartCount">0</span></button>
   </div>
 </header>
 
-<section class="hero-brand" id="inicio">
-  <div class="hero-brand-copy">
-    <p class="eyebrow">MAJESTYCH COUTURE</p>
-    <h1>ESTILO QUE<br><em>IMPONE.</em></h1>
-    <p class="hero-lead">Elegancia, exclusividad y actitud en cada pieza.</p>
-    <a class="hero-cta" href="#catalogo">DESCUBRIR COLECCIÓN <span>→</span></a>
+<main>
+<section class="hero" id="inicio">
+  <div class="hero-background"></div>
+  <div class="hero-content">
+    <div class="hero-brand">
+      <div class="hero-mark"><span class="crown">♛</span><span>MJTC</span></div>
+      <div class="brand-title">MAJESTYCH</div>
+      <div class="brand-divider"><span></span><b>◆</b><span></span></div>
+      <div class="brand-subtitle">COUTURE</div>
+    </div>
+    <p class="hero-tagline">ELEGANCIA QUE SE VISTE,<br>ACTITUD QUE SE NOTA.</p>
+    <a class="gold-button hero-button" href="#catalogo">VER COLECCIÓN <span>→</span></a>
   </div>
-  <div class="hero-brand-mark">
-    <div class="hero-monogram"><span class="crown">♛</span><b>M</b><i>J</i><b>T</b><i>C</i></div>
-    <div class="hero-divider"></div>
-    <div class="hero-wordmark"><strong>MAJESTYCH</strong><span>COUTURE</span></div>
+  <div class="hero-product">
+    <div class="hero-product-frame">
+      <img src="https://raw.githubusercontent.com/majestychcouture/Majestych-couture-/main/00f64e7e7bddb7e089292d505ea36360.jpeg" alt="Conjunto NBA destacado" fetchpriority="high">
+      <div class="hero-product-badge">COLECCIÓN DESTACADA</div>
+    </div>
   </div>
 </section>
 
-<section class="brand-values" id="nosotros">
-  <div><span class="value-icon">♛</span><strong>ELEGANCIA</strong><small>DISEÑOS QUE IMPONEN</small></div>
-  <div><span class="value-icon">◇</span><strong>EXCLUSIVIDAD</strong><small>PIEZAS QUE DESTACAN</small></div>
-  <div><span class="value-icon">♧</span><strong>CALIDAD</strong><small>DETALLES QUE DISTINGUEN</small></div>
-  <div><span class="value-icon">◎</span><strong>ESTILO GLOBAL</strong><small>INSPIRACIÓN SIN FRONTERAS</small></div>
+<section class="values-bar" aria-label="Valores de la marca">
+  <div class="value-item"><span class="value-icon">♕</span><div><strong>ELEGANCIA</strong><small>Diseños que imponen</small></div></div>
+  <div class="value-item"><span class="value-icon">♢</span><div><strong>EXCLUSIVIDAD</strong><small>Piezas únicas</small></div></div>
+  <div class="value-item"><span class="value-icon">♧</span><div><strong>CALIDAD</strong><small>Detalles que distinguen</small></div></div>
+  <div class="value-item"><span class="value-icon">◎</span><div><strong>ESTILO GLOBAL</strong><small>Inspiración sin fronteras</small></div></div>
 </section>
 
-<section class="catalogo" id="catalogo">
-  <div class="section-heading">
-    <p class="eyebrow">COLECCIÓN NBA</p>
-    <h2>Conjuntos NBA</h2>
+<section class="collection" id="catalogo">
+  <div class="section-heading centered">
+    <p class="eyebrow">NUESTRA COLECCIÓN</p>
+    <h2>CONJUNTOS NBA</h2>
+    <div class="section-rule"><span></span><b>◆</b><span></span></div>
+    <p>Diseños exclusivos para quienes viven el juego dentro y fuera de la cancha.</p>
   </div>
-
   <div class="products" id="products"></div>
 </section>
 
-<section class="gallery-preview" id="galeria">
-  <div class="section-heading centered-heading">
-    <p class="eyebrow">IDENTIDAD MAJESTYCH</p>
-    <h2>Una estética que habla por sí sola.</h2>
+<section class="gallery-section" id="galeria">
+  <div class="section-heading centered">
+    <p class="eyebrow">IDENTIDAD VISUAL</p>
+    <h2>DETALLES QUE HABLAN</h2>
+    <div class="section-rule"><span></span><b>◆</b><span></span></div>
   </div>
   <div class="gallery-grid">
-    <div class="gallery-card gallery-card-large"><span>MJTC</span><strong>THE SIGNATURE</strong></div>
-    <div class="gallery-card"><span>MAJESTYCH</span><strong>COUTURE</strong></div>
-    <div class="gallery-card"><span>BLACK</span><strong>GOLD</strong></div>
+    <div class="gallery-card tall"><img src="https://raw.githubusercontent.com/majestychcouture/Majestych-couture-/main/00f64e7e7bddb7e089292d505ea36360.jpeg" alt="Colección Majestych" loading="lazy"><span>ACTITUD</span></div>
+    <div class="gallery-card"><img src="https://raw.githubusercontent.com/majestychcouture/Majestych-couture-/main/0202a8a8c31727f8827e15d0c7bd9828.jpeg" alt="Colección Majestych" loading="lazy"><span>ESTILO</span></div>
+    <div class="gallery-card"><img src="https://raw.githubusercontent.com/majestychcouture/Majestych-couture-/main/073f311d29a0006e18a7eb0ea2517d1a.jpeg" alt="Colección Majestych" loading="lazy"><span>EXCLUSIVIDAD</span></div>
   </div>
 </section>
 
-<section class="contacto" id="contacto">
-  <p class="eyebrow">MAJESTYCH COUTURE</p>
-  <h2>¿Te gustó alguno?</h2>
-  <p>Escríbenos por WhatsApp para consultar disponibilidad.</p>
-  <a class="gold-button" id="mainWhatsapp" target="_blank" rel="noopener">HABLAR POR WHATSAPP</a>
+<section class="about-section" id="nosotros">
+  <div class="about-inner">
+    <div class="about-mark"><span class="crown">♛</span><span>MJTC</span></div>
+    <div class="about-copy">
+      <p class="eyebrow">SOBRE NOSOTROS</p>
+      <h2>NO ES SOLO ROPA.<br><em>ES UN ESTILO DE VIDA.</em></h2>
+      <p>Majestych Couture nace para quienes quieren vestir con personalidad, presencia y elegancia. Cada pieza busca combinar la energía del deporte con una estética cuidada y sofisticada.</p>
+      <a class="gold-button" href="#contacto">CONOCE MÁS <span>→</span></a>
+    </div>
+  </div>
 </section>
 
+<section class="contact-section" id="contacto">
+  <p class="eyebrow">MAJESTYCH COUTURE</p>
+  <h2>¿LISTO PARA DESTACAR?</h2>
+  <p>Consulta disponibilidad, tallas y pedidos directamente con nosotros.</p>
+  <a class="gold-button" id="mainWhatsapp" target="_blank" rel="noopener">HABLAR POR WHATSAPP</a>
+  <div class="social-links">
+    <a href="https://www.instagram.com/majestych.couture" target="_blank" rel="noopener noreferrer">INSTAGRAM</a>
+    <span>·</span>
+    <a href="https://www.facebook.com/profile.php?id=100065072647788" target="_blank" rel="noopener noreferrer">FACEBOOK</a>
+  </div>
+</section>
 
 <div class="cart-overlay" id="cartOverlay"></div>
-<aside class="cart-drawer" id="cartDrawer">
-  <div class="cart-header"><div><p class="eyebrow">MAJESTYCH COUTURE</p><h2>Tu carrito</h2></div><button type="button" id="cartClose">×</button></div>
+<aside class="cart-drawer" id="cartDrawer" aria-label="Carrito de compras">
+  <div class="cart-header"><div><p class="eyebrow">MAJESTYCH COUTURE</p><h2>Tu carrito</h2></div><button type="button" id="cartClose" aria-label="Cerrar">×</button></div>
   <div id="cartItems" class="cart-items"></div>
-  <section class="checkout-box"><button type="button" class="back-to-cart" id="backToCart">← EDITAR MI CARRITO</button><div class="checkout-title">DATOS DE ENVÍO</div>
-<p class="checkout-note">🚚 Envíos a todo el país · Pago contra entrega</p>
-<form id="checkoutForm">
-<input id="customerName" type="text" placeholder="Nombre completo" required>
-<input id="customerId" type="text" placeholder="Cédula" required>
-<input id="customerPhone" type="tel" placeholder="Celular" required>
-<select id="customerDepartment" required><option value="">Selecciona departamento</option><option value="Antioquia">Antioquia</option><option value="Amazonas">Amazonas</option><option value="Arauca">Arauca</option><option value="Atlántico">Atlántico</option><option value="Bolívar">Bolívar</option><option value="Boyacá">Boyacá</option><option value="Caldas">Caldas</option><option value="Caquetá">Caquetá</option><option value="Casanare">Casanare</option><option value="Cauca">Cauca</option><option value="Cesar">Cesar</option><option value="Chocó">Chocó</option><option value="Córdoba">Córdoba</option><option value="Cundinamarca">Cundinamarca</option><option value="Guainía">Guainía</option><option value="Guaviare">Guaviare</option><option value="Huila">Huila</option><option value="La Guajira">La Guajira</option><option value="Magdalena">Magdalena</option><option value="Meta">Meta</option><option value="Nariño">Nariño</option><option value="Norte de Santander">Norte de Santander</option><option value="Putumayo">Putumayo</option><option value="Quindío">Quindío</option><option value="Risaralda">Risaralda</option><option value="San Andrés y Providencia">San Andrés y Providencia</option><option value="Santander">Santander</option><option value="Sucre">Sucre</option><option value="Tolima">Tolima</option><option value="Valle del Cauca">Valle del Cauca</option><option value="Vaupés">Vaupés</option><option value="Vichada">Vichada</option></select>
-<input id="customerCity" type="text" placeholder="Ciudad / municipio" required>
-<input id="customerAddress" type="text" placeholder="Dirección de entrega" required>
-<div id="shippingSummary" class="checkout-payments">Envío: <strong>Selecciona tu departamento y municipio</strong></div>
-<div id="paymentOptions" class="checkout-payments">
-  <div class="payment-online-card">
-    <div class="payment-online-icon" aria-hidden="true">▣</div>
-    <div class="payment-online-copy">
-      <strong>PAGO EN LÍNEA</strong>
-      <span>Nequi · Bancolombia · PSE · Tarjetas</span>
-    </div>
-    <button type="button" id="payOnlineBtn" class="checkout-pay-btn">PAGAR AHORA</button>
-  </div>
-  <div class="payment-cod">
-    <strong>PAGO CONTRA ENTREGA</strong>
-    <span>Efectivo al recibir tu pedido</span>
-  </div>
-</div>
-<button type="submit" class="checkout-submit">FINALIZAR PEDIDO POR WHATSAPP</button>
-</form></section>
-<div class="cart-footer"><div class="cart-total"><span>TOTAL</span><strong id="cartTotal">$0 COP</strong></div>
-  </div>
+  <section class="checkout-box">
+    <button type="button" class="back-to-cart" id="backToCart">← EDITAR MI CARRITO</button>
+    <div class="checkout-title">DATOS DE ENVÍO</div>
+    <p class="checkout-note">🚚 Envíos a todo el país · Pago contra entrega</p>
+    <form id="checkoutForm">
+      <input id="customerName" type="text" placeholder="Nombre completo" required>
+      <input id="customerId" type="text" placeholder="Cédula" required>
+      <input id="customerPhone" type="tel" placeholder="Celular" required>
+      <select id="customerDepartment" required><option value="">Selecciona departamento</option><option value="Antioquia">Antioquia</option><option value="Amazonas">Amazonas</option><option value="Arauca">Arauca</option><option value="Atlántico">Atlántico</option><option value="Bolívar">Bolívar</option><option value="Boyacá">Boyacá</option><option value="Caldas">Caldas</option><option value="Caquetá">Caquetá</option><option value="Casanare">Casanare</option><option value="Cauca">Cauca</option><option value="Cesar">Cesar</option><option value="Chocó">Chocó</option><option value="Córdoba">Córdoba</option><option value="Cundinamarca">Cundinamarca</option><option value="Guainía">Guainía</option><option value="Guaviare">Guaviare</option><option value="Huila">Huila</option><option value="La Guajira">La Guajira</option><option value="Magdalena">Magdalena</option><option value="Meta">Meta</option><option value="Nariño">Nariño</option><option value="Norte de Santander">Norte de Santander</option><option value="Putumayo">Putumayo</option><option value="Quindío">Quindío</option><option value="Risaralda">Risaralda</option><option value="San Andrés y Providencia">San Andrés y Providencia</option><option value="Santander">Santander</option><option value="Sucre">Sucre</option><option value="Tolima">Tolima</option><option value="Valle del Cauca">Valle del Cauca</option><option value="Vaupés">Vaupés</option><option value="Vichada">Vichada</option></select>
+      <input id="customerCity" type="text" placeholder="Ciudad / municipio" required>
+      <input id="customerAddress" type="text" placeholder="Dirección de entrega" required>
+      <div id="shippingSummary" class="checkout-payments">Envío: <strong>Selecciona tu departamento y municipio</strong></div>
+      <div id="paymentOptions" class="checkout-payments">
+        <div class="payment-online-card">
+          <div class="payment-online-icon" aria-hidden="true">▣</div>
+          <div class="payment-online-copy"><strong>PAGO EN LÍNEA</strong><span>Nequi · Bancolombia · PSE · Tarjetas</span></div>
+          <button type="button" id="payOnlineBtn" class="checkout-pay-btn">PAGAR AHORA</button>
+        </div>
+        <div class="payment-cod"><strong>PAGO CONTRA ENTREGA</strong><span>Efectivo al recibir tu pedido</span></div>
+      </div>
+      <button type="submit" class="checkout-submit">FINALIZAR PEDIDO POR WHATSAPP</button>
+    </form>
+  </section>
+  <div class="cart-footer"><div class="cart-total"><span>TOTAL</span><strong id="cartTotal">$0 COP</strong></div></div>
 </aside>
+
 <div class="product-modal" id="productModal" aria-hidden="true">
   <div class="modal-backdrop" id="modalBackdrop"></div>
   <div class="modal-panel" role="dialog" aria-modal="true" aria-labelledby="modalName">
@@ -267,50 +147,22 @@
       <h2 id="modalName">Conjunto NBA #1</h2>
       <p class="modal-price" id="modalPrice">$74.999 COP</p>
       <p class="modal-note">Selecciona tu talla:</p>
-      <div class="size-options" id="modalSizes">
-        <button type="button" class="size-option" data-size="S">S</button>
-        <button type="button" class="size-option" data-size="M">M</button>
-        <button type="button" class="size-option" data-size="L">L</button>
-        <button type="button" class="size-option" data-size="XL">XL</button>
-      </div>
-      <button type="button" class="add-cart-modal" id="addCartModal">🛒 AGREGAR AL CARRITO</button>
-      <a class="gold-button modal-whatsapp" id="modalWhatsapp" href="#" target="_blank" rel="noopener">
-        COMPRAR POR WHATSAPP
-      </a>
+      <div class="size-options" id="modalSizes"><button type="button" class="size-option" data-size="S">S</button><button type="button" class="size-option" data-size="M">M</button><button type="button" class="size-option" data-size="L">L</button><button type="button" class="size-option" data-size="XL">XL</button></div>
+      <button type="button" class="add-cart-modal" id="addCartModal">♧ AGREGAR AL CARRITO</button>
+      <a class="gold-button modal-whatsapp" id="modalWhatsapp" href="#" target="_blank" rel="noopener">COMPRAR POR WHATSAPP</a>
       <button type="button" class="back-button" id="modalBack">← VOLVER A LA COLECCIÓN</button>
     </div>
   </div>
 </div>
 </main>
 
-<footer>© 2026 MAJESTYCH COUTURE · CLÁSICOS PERO NUNCA BÁSICOS.</footer>
-
-<a class="whatsapp-float" id="floatWhatsapp" target="_blank" rel="noopener" aria-label="WhatsApp">
-  <svg viewBox="0 0 32 32" aria-hidden="true">
-    <circle cx="16" cy="16" r="14.8" fill="none" stroke="white" stroke-width="2"/>
-    <path fill="white" d="M21.45 18.35c-.27-.14-1.62-.8-1.87-.89-.25-.09-.43-.14-.62.14-.18.27-.7.89-.86 1.07-.16.18-.32.2-.59.07-.27-.14-1.15-.42-2.2-1.36-.81-.72-1.36-1.61-1.52-1.88-.16-.27-.02-.42.12-.55.12-.12.27-.32.41-.48.14-.16.18-.27.27-.45.09-.18.05-.34-.02-.48-.07-.14-.62-1.49-.84-2.03-.22-.54-.45-.47-.62-.48h-.53c-.18 0-.48.07-.73.34-.25.27-.96.94-.96 2.29s.98 2.66 1.11 2.84c.14.18 1.94 2.97 4.71 4.16.65.28 1.17.46 1.56.58.66.21 1.25.18 1.72.11.52-.08 1.61-.66 1.84-1.3.23-.64.23-1.19.16-1.3-.07-.11-.25-.18-.52-.32z"/>
-  </svg>
-</a>
-
-<script src="script.js"></script>
-
-<footer class="social-footer" id="contacto">
-  <div class="social-footer-inner">
-    <div class="social-brand">MAJESTYCH <span>COUTURE</span></div>
-    <p class="social-tagline">Clásicos, pero nunca básicos.</p>
-    <div class="social-links">
-      <a class="social-link" href="https://www.instagram.com/majestych.couture?igsh=MWpzMHd3NDgxczJ0Ng%3D%3D&utm_source=qr" target="_blank" rel="noopener noreferrer" aria-label="Instagram de Majestych Couture">
-        <span class="social-icon instagram-icon">◎</span><span>INSTAGRAM</span>
-      </a>
-      <a class="social-link" href="https://www.facebook.com/profile.php?id=100065072647788&mibextid=wwXIfr" target="_blank" rel="noopener noreferrer" aria-label="Facebook de Majestych Couture">
-        <span class="social-icon facebook-icon">f</span><span>FACEBOOK</span>
-      </a>
-    </div>
-    <p class="social-copy">© 2026 MAJESTYCH COUTURE · TODOS LOS DERECHOS RESERVADOS</p>
-  </div>
+<footer class="site-footer">
+  <div class="footer-mark"><span class="crown">♛</span><span>MJTC</span></div>
+  <div class="footer-brand">MAJESTYCH <span>COUTURE</span></div>
+  <p>© 2026 MAJESTYCH COUTURE · TODOS LOS DERECHOS RESERVADOS</p>
 </footer>
 
-
-
+<a class="whatsapp-float" id="floatWhatsapp" target="_blank" rel="noopener" aria-label="WhatsApp">⌕</a>
+<script src="script.js"></script>
 </body>
 </html>
