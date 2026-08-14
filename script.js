@@ -311,3 +311,37 @@ updateShipping();
   }
 })();
 
+
+
+/* V10.8.1 — Valores de marca funcionales. Basado directamente en V10.8 HOMEPAGE LUXURY. */
+(function(){
+  const modal=document.getElementById("valueModal");
+  const closeBtn=document.getElementById("valueModalClose");
+  const backdrop=document.getElementById("valueModalBackdrop");
+  const title=document.getElementById("valueModalTitle");
+  const text=document.getElementById("valueModalText");
+  const icon=document.getElementById("valueModalIcon");
+  const action=document.getElementById("valueModalAction");
+  if(!modal) return;
+
+  const data={
+    elegancia:{title:"ELEGANCIA",icon:"♕",text:"Una estética cuidada en cada detalle. Diseños pensados para proyectar presencia, personalidad y confianza sin perder la esencia de Majestych Couture.",target:"#catalogo"},
+    exclusividad:{title:"EXCLUSIVIDAD",icon:"♢",text:"Piezas seleccionadas para quienes buscan diferenciarse. Una colección con identidad propia y una propuesta que no pasa desapercibida.",target:"#catalogo"},
+    calidad:{title:"CALIDAD",icon:"♧",text:"Cuidamos la elección visual y la presentación de cada producto para que la experiencia de compra esté a la altura de la marca.",target:"#catalogo"},
+    global:{title:"ESTILO GLOBAL",icon:"◎",text:"Inspiración deportiva y urbana con una estética contemporánea. Majestych Couture une actitud, moda y una visión que trasciende fronteras.",target:"#galeria"}
+  };
+
+  function openValue(key){
+    const item=data[key]||data.elegancia;
+    title.textContent=item.title; icon.textContent=item.icon; text.textContent=item.text; action.href=item.target;
+    modal.classList.add("open"); modal.setAttribute("aria-hidden","false"); document.body.classList.add("modal-open");
+  }
+  function closeValue(){
+    modal.classList.remove("open"); modal.setAttribute("aria-hidden","true"); document.body.classList.remove("modal-open");
+  }
+
+  document.querySelectorAll(".value-item[data-value]").forEach(btn=>btn.addEventListener("click",()=>openValue(btn.dataset.value)));
+  closeBtn.addEventListener("click",closeValue); backdrop.addEventListener("click",closeValue);
+  document.addEventListener("keydown",e=>{if(e.key==="Escape"&&modal.classList.contains("open"))closeValue();});
+  action.addEventListener("click",closeValue);
+})();
