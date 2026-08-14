@@ -179,12 +179,23 @@
 <body>
 
 <header class="header">
-  <a class="brand" href="#inicio">MAJESTYCH</a>
-  <button type="button" class="cart-button" id="cartButton">🛒 <span id="cartCount">0</span></button><nav>
+  <a class="header-monogram" href="#inicio" aria-label="Majestych Couture, inicio">
+    <span class="header-crown">♛</span>
+    <span class="header-mjtc">MJTC</span>
+  </a>
+  <a class="header-brand" href="#inicio" aria-label="Majestych Couture">MAJESTYCH</a>
+  <nav class="main-nav" aria-label="Navegación principal">
     <a href="#inicio">INICIO</a>
     <a href="#catalogo">CATÁLOGO</a>
+    <a href="#galeria">GALERÍA</a>
+    <a href="#nosotros">SOBRE NOSOTROS</a>
     <a href="#contacto">CONTACTO</a>
   </nav>
+  <div class="header-actions">
+    <button type="button" class="header-icon" id="searchButton" aria-label="Buscar">⌕</button>
+    <button type="button" class="header-icon" id="favoritesButton" aria-label="Favoritos">♡</button>
+    <button type="button" class="cart-button" id="cartButton" aria-label="Abrir carrito">🛍 <span id="cartCount">0</span></button>
+  </div>
 </header>
 <section class="hero">
   <div class="hero-content">
@@ -253,6 +264,24 @@
   </div>
 
   <div class="products" id="products"></div>
+</section>
+
+<section class="simple-section" id="galeria">
+  <div class="section-heading">
+    <p class="eyebrow">MAJESTYCH COUTURE</p>
+    <h2>Galería</h2>
+  </div>
+  <p>Descubre la estética y los detalles que definen nuestra colección.</p>
+  <a class="gold-button" href="#catalogo">VER COLECCIÓN</a>
+</section>
+
+<section class="simple-section" id="nosotros">
+  <div class="section-heading">
+    <p class="eyebrow">MAJESTYCH COUTURE</p>
+    <h2>Sobre nosotros</h2>
+  </div>
+  <p>Majestych Couture nace para unir elegancia, identidad y estilo en cada pieza.</p>
+  <a class="gold-button" href="#contacto">CONTACTARNOS</a>
 </section>
 
 <section class="contacto" id="contacto">
@@ -378,5 +407,26 @@
 })();
 </script>
 
+<script>
+(function(){
+  const searchButton=document.getElementById("searchButton");
+  const favoritesButton=document.getElementById("favoritesButton");
+  if(searchButton){
+    searchButton.addEventListener("click",()=>{
+      const input=document.querySelector("#productSearch, input[placeholder*='Buscar'], input[type='search']");
+      if(input){ input.focus(); input.scrollIntoView({behavior:"smooth",block:"center"}); }
+      else { document.getElementById("catalogo")?.scrollIntoView({behavior:"smooth"}); }
+    });
+  }
+  if(favoritesButton){
+    favoritesButton.addEventListener("click",()=>{
+      const products=document.querySelectorAll(".product");
+      const favorites=[...products].filter(p=>p.dataset.favorite==="true");
+      if(favorites.length){ favorites[0].scrollIntoView({behavior:"smooth",block:"center"}); }
+      else { document.getElementById("catalogo")?.scrollIntoView({behavior:"smooth"}); alert("Tus favoritos aparecerán aquí cuando marques un producto con ♡."); }
+    });
+  }
+})();
+</script>
 </body>
 </html>
