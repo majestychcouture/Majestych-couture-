@@ -1,0 +1,13 @@
+MAJESTYCH COUTURE V10.7
+
+Nueva identidad visual definitiva basada en la propuesta aprobada:
+- Monograma MJTC independiente con corona.
+- Título MAJESTYCH separado del monograma.
+- COUTURE en dorado.
+- Paleta negro, blanco/ivory, dorado y gris.
+- Encabezado premium con navegación: Inicio, Catálogo, Galería, Sobre nosotros y Contacto.
+- Nueva portada de lujo.
+- Nueva sección de identidad y valores.
+- Nueva sección de galería visual.
+- Catálogo y funcionalidades existentes conservados.
+- Wompi, Cloudflare Worker, carrito, envío y WhatsApp no fueron modificados en script.js.
