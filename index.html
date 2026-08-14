@@ -155,97 +155,65 @@
 </head>
 <body>
 
-<header class="header" id="top">
-  <a class="header-monogram" href="#inicio" aria-label="Majestych Couture inicio">
-    <svg viewBox="0 0 90 82" role="img" aria-label="MJTC">
-      <path class="crown" d="M25 17 L31 7 L39 16 L45 4 L51 16 L60 7 L66 17 L62 22 L29 22 Z"/>
-      <path class="crown-line" d="M27 25 H64"/>
-      <text x="45" y="53" text-anchor="middle">MJTC</text>
-    </svg>
+<header class="header">
+  <a class="brand-lockup" href="#inicio" aria-label="Majestych Couture">
+    <span class="brand-monogram"><span class="crown">♛</span><b>M</b><i>J</i><b>T</b><i>C</i></span>
+    <span class="brand-name"><strong>MAJESTYCH</strong><small>COUTURE</small></span>
   </a>
-  <nav class="main-nav" aria-label="Navegación principal">
-    <a class="active" href="#inicio">INICIO</a>
+  <nav>
+    <a href="#inicio">INICIO</a>
     <a href="#catalogo">CATÁLOGO</a>
     <a href="#galeria">GALERÍA</a>
     <a href="#nosotros">SOBRE NOSOTROS</a>
     <a href="#contacto">CONTACTO</a>
   </nav>
   <div class="header-actions">
-    <button type="button" class="icon-button" aria-label="Buscar" title="Buscar">⌕</button>
-    <button type="button" class="icon-button" aria-label="Favoritos" title="Favoritos">♡</button>
-    <button type="button" class="cart-button" id="cartButton" aria-label="Abrir carrito">♧ <span id="cartCount">0</span></button>
+    <button class="header-icon" type="button" aria-label="Buscar">⌕</button>
+    <button class="header-icon" type="button" aria-label="Favoritos">♡</button>
+    <button type="button" class="cart-button" id="cartButton" aria-label="Carrito">♧ <span id="cartCount">0</span></button>
   </div>
 </header>
 
-<main>
-<section class="luxury-hero" id="inicio">
-  <div class="hero-frame"></div>
-  <div class="luxury-hero-content">
-    <div class="hero-monogram" aria-hidden="true">
-      <svg viewBox="0 0 180 150">
-        <path class="crown" d="M52 31 L65 10 L82 29 L91 5 L101 29 L119 10 L132 31 L125 40 L59 40 Z"/>
-        <path class="crown-line" d="M57 46 H128"/>
-        <text x="92" y="106" text-anchor="middle">MJTC</text>
-      </svg>
-    </div>
-    <p class="hero-kicker">MAJESTYCH</p>
-    <div class="hero-divider"><span></span><i>◆</i><span></span></div>
-    <div class="hero-couture">COUTURE</div>
-    <p class="hero-tagline">DISEÑOS QUE IMPONEN · PIEZAS QUE DISTINGUEN</p>
-    <a class="hero-cta" href="#catalogo">VER COLECCIÓN <span>↓</span></a>
+<section class="hero-brand" id="inicio">
+  <div class="hero-brand-copy">
+    <p class="eyebrow">MAJESTYCH COUTURE</p>
+    <h1>ESTILO QUE<br><em>IMPONE.</em></h1>
+    <p class="hero-lead">Elegancia, exclusividad y actitud en cada pieza.</p>
+    <a class="hero-cta" href="#catalogo">DESCUBRIR COLECCIÓN <span>→</span></a>
+  </div>
+  <div class="hero-brand-mark">
+    <div class="hero-monogram"><span class="crown">♛</span><b>M</b><i>J</i><b>T</b><i>C</i></div>
+    <div class="hero-divider"></div>
+    <div class="hero-wordmark"><strong>MAJESTYCH</strong><span>COUTURE</span></div>
   </div>
 </section>
 
-<section class="brand-intro" id="nosotros">
-  <div class="brand-intro-copy">
-    <p class="eyebrow">LA NUEVA IDENTIDAD</p>
-    <h2>Elegancia que<br><span>habla por sí sola.</span></h2>
-    <p>Majestych Couture nace para vestir con presencia. Una estética limpia, sofisticada y contemporánea donde cada detalle tiene un propósito.</p>
-  </div>
-  <div class="brand-values">
-    <article><span>♕</span><strong>ELEGANCIA</strong><small>Diseños que imponen</small></article>
-    <article><span>◇</span><strong>EXCLUSIVIDAD</strong><small>Piezas únicas</small></article>
-    <article><span>♧</span><strong>CALIDAD</strong><small>Detalles que distinguen</small></article>
-    <article><span>◎</span><strong>ESTILO GLOBAL</strong><small>Inspiración sin fronteras</small></article>
-  </div>
+<section class="brand-values" id="nosotros">
+  <div><span class="value-icon">♛</span><strong>ELEGANCIA</strong><small>DISEÑOS QUE IMPONEN</small></div>
+  <div><span class="value-icon">◇</span><strong>EXCLUSIVIDAD</strong><small>PIEZAS QUE DESTACAN</small></div>
+  <div><span class="value-icon">♧</span><strong>CALIDAD</strong><small>DETALLES QUE DISTINGUEN</small></div>
+  <div><span class="value-icon">◎</span><strong>ESTILO GLOBAL</strong><small>INSPIRACIÓN SIN FRONTERAS</small></div>
 </section>
 
 <section class="catalogo" id="catalogo">
   <div class="section-heading">
     <p class="eyebrow">COLECCIÓN NBA</p>
     <h2>Conjuntos NBA</h2>
-    <p class="section-subtitle">Encuentra tu pieza. Elige tu talla. Lleva el estilo Majestych.</p>
   </div>
 
   <div class="products" id="products"></div>
 </section>
 
 <section class="gallery-preview" id="galeria">
-  <div class="gallery-heading">
-    <p class="eyebrow">MAJESTYCH COUTURE</p>
-    <h2>Una estética que<br><span>se reconoce.</span></h2>
+  <div class="section-heading centered-heading">
+    <p class="eyebrow">IDENTIDAD MAJESTYCH</p>
+    <h2>Una estética que habla por sí sola.</h2>
   </div>
   <div class="gallery-grid">
-    <div class="gallery-card gallery-card-dark"><div class="gallery-monogram">MJTC</div></div>
-    <div class="gallery-card gallery-card-light"><div class="gallery-wordmark">MAJESTYCH<br><small>COUTURE</small></div></div>
-    <div class="gallery-card gallery-card-marble"><div class="gallery-wordmark gold">MJTC</div></div>
+    <div class="gallery-card gallery-card-large"><span>MJTC</span><strong>THE SIGNATURE</strong></div>
+    <div class="gallery-card"><span>MAJESTYCH</span><strong>COUTURE</strong></div>
+    <div class="gallery-card"><span>BLACK</span><strong>GOLD</strong></div>
   </div>
-</section>
-
-<section class="contacto" id="contacto">
-  <p class="eyebrow">MAJESTYCH COUTURE</p>
-  <h2>¿Te gustó alguno?</h2>
-  <p>Escríbenos por WhatsApp para consultar disponibilidad.</p>
-  <a class="gold-button" id="mainWhatsapp" target="_blank" rel="noopener">HABLAR POR WHATSAPP</a>
-</section>
-
-<section class="catalogo" id="catalogo">
-  <div class="section-heading">
-    <p class="eyebrow">COLECCIÓN NBA</p>
-    <h2>Conjuntos NBA</h2>
-  </div>
-
-  <div class="products" id="products"></div>
 </section>
 
 <section class="contacto" id="contacto">
@@ -315,7 +283,7 @@
 </div>
 </main>
 
-<footer>© 2026 MAJESTYCH COUTURE · ELEGANCIA · EXCLUSIVIDAD · CALIDAD · ESTILO GLOBAL.</footer>
+<footer>© 2026 MAJESTYCH COUTURE · CLÁSICOS PERO NUNCA BÁSICOS.</footer>
 
 <a class="whatsapp-float" id="floatWhatsapp" target="_blank" rel="noopener" aria-label="WhatsApp">
   <svg viewBox="0 0 32 32" aria-hidden="true">
@@ -326,9 +294,9 @@
 
 <script src="script.js"></script>
 
-<footer class="social-footer" id="redes">
+<footer class="social-footer" id="contacto">
   <div class="social-footer-inner">
-    <div class="social-brand"><span class="footer-mjtc">MJTC</span><strong>MAJESTYCH</strong><span>COUTURE</span></div>
+    <div class="social-brand">MAJESTYCH <span>COUTURE</span></div>
     <p class="social-tagline">Clásicos, pero nunca básicos.</p>
     <div class="social-links">
       <a class="social-link" href="https://www.instagram.com/majestych.couture?igsh=MWpzMHd3NDgxczJ0Ng%3D%3D&utm_source=qr" target="_blank" rel="noopener noreferrer" aria-label="Instagram de Majestych Couture">
